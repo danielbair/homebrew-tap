@@ -1,0 +1,18 @@
+82,83c82,83
+<   assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
+<   assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
+---
+>   //assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
+>   //assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
+311c311
+< 		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_timedwait (start_is_required) from %d.%09lu to %d.%09lu \n",
+---
+> 		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_wait (start_is_required) from %d.%09lu to %d.%09lu \n",
+315c315
+< 		while ((err = sem_timedwait(&my_sem_start_is_required, &ts)) == -1
+---
+> 		while ((err = sem_wait(&my_sem_start_is_required)) == -1
+322c322
+< 		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_timedwait (start_is_required, err=%d) %d.%09lu \n", err,
+---
+> 		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_wait (start_is_required, err=%d) %d.%09lu \n", err,

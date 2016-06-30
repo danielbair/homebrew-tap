@@ -1,0 +1,20 @@
+96,98c96,98
+<   assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
+<   assert(-1 != sem_init(&my_sem_stop_is_required, 0, 0));
+<   assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
+---
+>   //assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
+>   //assert(-1 != sem_init(&my_sem_stop_is_required, 0, 0));
+>   //assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
+409c409
+< 	SHOW("polling_thread > sleep_until_timeout_or_stop_request > start sem_timedwait from %d.%09lu to %d.%09lu \n",
+---
+> 	SHOW("polling_thread > sleep_until_timeout_or_stop_request > start sem_wait from %d.%09lu to %d.%09lu \n",
+413c413
+< 	while ((err = sem_timedwait(&my_sem_stop_is_required, &ts)) == -1
+---
+> 	while ((err = sem_wait(&my_sem_stop_is_required)) == -1
+420c420
+< 	SHOW("polling_thread > sleep_until_timeout_or_stop_request > stop sem_timedwait %d.%09lu \n",
+---
+> 	SHOW("polling_thread > sleep_until_timeout_or_stop_request > stop sem_wait %d.%09lu \n",

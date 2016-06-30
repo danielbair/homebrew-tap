@@ -1,0 +1,4 @@
+19c19
+< SONAME_OPT=-Wl,-soname,
+---
+> SONAME_OPT=-Wl,-install_name,
