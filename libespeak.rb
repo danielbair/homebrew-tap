@@ -13,7 +13,7 @@ class Libespeak < Formula
   end
 
   def install
-    #share.install "espeak-data"
+    pkgshare.install "espeak-data"
     cd "src" do
       rm "portaudio.h"
       system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
