@@ -6,9 +6,7 @@ class Libespeak < Formula
   depends_on "portaudio"
 
   patch do
-      url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/Makefile.patch"
-      url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/fifo.cpp.patch"
-      url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/event.cpp.patch"
+      url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
   end
 
   def install
