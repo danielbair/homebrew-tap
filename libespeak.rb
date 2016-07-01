@@ -4,13 +4,14 @@ class Libespeak < Formula
   url "https://downloads.sourceforge.net/project/espeak/espeak/espeak-1.48/espeak-1.48.04-source.zip"
 
   depends_on "portaudio"
+  depends_on "espeak"
 
   patch do
       url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
   end
 
   def install
-    share.install "espeak-data"
+    #share.install "espeak-data"
     cd "src" do
       rm "portaudio.h"
       system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
