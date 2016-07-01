@@ -1,4 +1,11 @@
-19c19
-< SONAME_OPT=-Wl,-soname,
----
-> SONAME_OPT=-Wl,-install_name,
+--- src/Makefile	2014-02-02 17:58:11.000000000 +0700
++++ src/Makefile	2016-07-01 07:23:59.000000000 +0700
+@@ -16,7 +16,7 @@
+ LIBTAG = $(LIB_VERSION).$(RELEASE)
+
+ # Use SONAME_OPT=-Wl,h, on Solaris
+-SONAME_OPT=-Wl,-soname,
++SONAME_OPT=-Wl,-install_name,
+
+ # Use EXTRA_LIBS=-lm on Solaris
+ EXTRA_LIBS =

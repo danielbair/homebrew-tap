@@ -1,18 +1,35 @@
-82,83c82,83
-<   assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
-<   assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
----
->   //assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
->   //assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
-311c311
-< 		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_timedwait (start_is_required) from %d.%09lu to %d.%09lu \n",
----
-> 		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_wait (start_is_required) from %d.%09lu to %d.%09lu \n",
-315c315
-< 		while ((err = sem_timedwait(&my_sem_start_is_required, &ts)) == -1
----
-> 		while ((err = sem_wait(&my_sem_start_is_required)) == -1
-322c322
-< 		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_timedwait (start_is_required, err=%d) %d.%09lu \n", err,
----
-> 		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_wait (start_is_required, err=%d) %d.%09lu \n", err,
+--- src/fifo.cpp	2014-03-04 23:47:15.000000000 +0700
++++ src/fifo.cpp	2016-07-01 07:23:59.000000000 +0700
+@@ -79,8 +79,8 @@
+   pthread_mutex_init( &my_mutex, (const pthread_mutexattr_t *)NULL);
+   init(0);
+
+-  assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
+-  assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
++  //assert(-1 != sem_init(&my_sem_start_is_required, 0, 0));
++  //assert(-1 != sem_init(&my_sem_stop_is_acknowledged, 0, 0));
+
+   pthread_attr_t a_attrib;
+   if (pthread_attr_init (& a_attrib)
+@@ -308,18 +308,18 @@
+
+ 		add_time_in_ms( &ts, INACTIVITY_TIMEOUT);
+
+-		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_timedwait (start_is_required) from %d.%09lu to %d.%09lu \n",
++		SHOW("fifo > sleep_until_start_request_or_inactivity > start sem_wait (start_is_required) from %d.%09lu to %d.%09lu \n",
+ 			to.tv_sec, to.tv_nsec,
+ 			ts.tv_sec, ts.tv_nsec);
+
+-		while ((err = sem_timedwait(&my_sem_start_is_required, &ts)) == -1
++		while ((err = sem_wait(&my_sem_start_is_required)) == -1
+ 			&& errno == EINTR)
+ 		{
+ 			continue;
+ 		}
+
+ 		assert (gettimeofday(&tv, NULL) != -1);
+-		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_timedwait (start_is_required, err=%d) %d.%09lu \n", err,
++		SHOW("fifo > sleep_until_start_request_or_inactivity > stop sem_wait (start_is_required, err=%d) %d.%09lu \n", err,
+ 			tv.tv_sec, tv.tv_usec*1000);
+
+ 		if (err==0)
