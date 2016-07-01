@@ -5,7 +5,6 @@ class Libespeak < Formula
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
 
   depends_on "portaudio"
-  depends_on "espeak"
 
   patch do
       url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
@@ -16,8 +15,8 @@ class Libespeak < Formula
     pkgshare.install "espeak-data"
     cd "src" do
       rm "portaudio.h"
-      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
-      system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "libespeak.so", "DATADIR=#{share}/libespeak/espeak-data", "PREFIX=#{prefix}"
+      system "make", "libespeak.a", "DATADIR=#{share}/libespeak/espeak-data", "PREFIX=#{prefix}"
       lib.install "libespeak.so.1.1.48" => "libespeak.so.1.1.48"
       lib.install "libespeak.so.1" => "libespeak.so.1"
       lib.install "libespeak.so" => "libespeak.so"
