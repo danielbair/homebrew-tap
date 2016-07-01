@@ -16,7 +16,11 @@ class Libespeak < Formula
     #share.install "espeak-data"
     cd "src" do
       rm "portaudio.h"
+      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
       system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      lib.install "libespeak.so.1.1.48" => "libespeak.so.1.1.48"
+      lib.install "libespeak.so.1" => "libespeak.so.1"
+      lib.install "libespeak.so" => "libespeak.so"
       lib.install "libespeak.a" => "libespeak.a"
     end
   end
