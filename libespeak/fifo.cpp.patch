@@ -1,5 +1,5 @@
---- src/fifo.cpp	2014-03-04 23:47:15.000000000 +0700
-+++ src/fifo.cpp	2016-07-01 07:23:59.000000000 +0700
+--- old/src/fifo.cpp	2014-03-04 23:47:15.000000000 +0700
++++ new/src/fifo.cpp	2016-07-01 07:23:59.000000000 +0700
 @@ -79,8 +79,8 @@
    pthread_mutex_init( &my_mutex, (const pthread_mutexattr_t *)NULL);
    init(0);
