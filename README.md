@@ -1,7 +1,7 @@
 ## Installing
 
-libespeak
-espeak
+1. libespeak
+2. espeak
 
 Add the tap:
 
