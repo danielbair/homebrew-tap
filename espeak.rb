@@ -7,8 +7,8 @@ class Espeak < Formula
   depends_on "portaudio"
 
   patch do
-      url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
-      sha256 "58b769e7e7f6f3904e2eee221f733029681184b8da654eb211bf90120abcab6b"
+    url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
+    sha256 "58b769e7e7f6f3904e2eee221f733029681184b8da654eb211bf90120abcab6b"
   end
 
   def install
@@ -18,12 +18,11 @@ class Espeak < Formula
       rm "portaudio.h"
       system "make", "speak", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
       bin.install "speak" => "espeak"
-      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
-      lib.install "libespeak.so.1.1.48" => "libespeak.so.1.1.48"
-      lib.install "libespeak.so.1" => "libespeak.so.1"
-      lib.install "libespeak.so" => "libespeak.so"
       system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
       lib.install "libespeak.a" => "libespeak.a"
+      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      lib.install "libespeak.so.1.1.48" => "libespeak.dylib"
+      system "install_name_tool", "-id", "#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib"
     end
   end
 
