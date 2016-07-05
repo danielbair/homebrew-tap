@@ -1,8 +1,11 @@
-class Ffmpeg < Formula
+class Ffmpeg30 < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-3.0.2.tar.bz2"
   sha256 "30e3c77c2f4c358ed087869455a7496cbd7753a5e1b98d20ba49c1004009fd36"
+
+  conflicts_with "ffmpeg",
+                 :because => "both install the same binaries"
 
   option "without-x264", "Disable H.264 encoder"
   option "without-lame", "Disable MP3 encoder"
