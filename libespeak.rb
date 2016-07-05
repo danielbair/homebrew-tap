@@ -1,10 +1,11 @@
 class Libespeak < Formula
-  desc "Static library for the eSpeak text to speech, software speech synthesizer"
+  desc "library for the text to speech, software speech synthesizer"
   homepage "http://espeak.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/espeak/espeak/espeak-1.48/espeak-1.48.04-source.zip"
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
 
   depends_on "portaudio"
+  depends_on "espeak"
 
   patch do
     url "https://github.com/danielbair/homebrew-tap/raw/master/libespeak/espeak-osx.patch"
@@ -24,4 +25,7 @@ class Libespeak < Formula
     end
   end
 
+  test do
+    system "#{bin}/espeak", "This is a test for Espeak.", "-w", "out.wav"
+  end
 end
