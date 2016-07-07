@@ -7,7 +7,7 @@ class Aeneas < Formula
 
   depends_on "ffmpeg"
   depends_on "espeak"
-  depends_on "libespeak" => :recommended
+  depends_on "danielbair/tap/libespeak" => :recommended
   depends_on "python" => :recommended
 
   resource "beautifulsoup4" do
