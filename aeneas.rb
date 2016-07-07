@@ -40,16 +40,18 @@ class Aeneas < Formula
 
     bin.install Dir["#{libexec}/bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
-    `grep "#{ENV["PYTHONPATH"]}" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
+    `grep "#{libexec}/lib/python2.7/site-packages" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
+    `grep "/usr/local/bin:/usr/local/sbin" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> /Users/$(whoami)/.bash_profile`
   end
 
-  def caveats;
-    result = %x[export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup]
+  def caveats
+    result = `export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup`
     printf result
   end
 
   test do
-    system "#{bin}/aeneas_check_setup"
+    result = `export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup`
+    printf result
   end
 end
 __END__
