@@ -40,6 +40,12 @@ class Aeneas < Formula
 
     bin.install Dir["#{libexec}/bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+    `grep "#{ENV["PYTHONPATH"]}" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
+  end
+
+  def caveats;
+    result = %x[export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup]
+    printf result
   end
 
   test do
