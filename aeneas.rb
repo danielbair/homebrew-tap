@@ -7,6 +7,7 @@ class Aeneas < Formula
 
   depends_on "ffmpeg"
   depends_on "espeak"
+  depends_on "libespeak" => :optional
   depends_on "python"
 
   resource "beautifulsoup4" do
@@ -23,6 +24,10 @@ class Aeneas < Formula
     url "https://pypi.python.org/packages/e0/4c/515d7c4ac424ff38cc919f7099bf293dd064ba9a600e1e3835b3edefdb18/numpy-1.11.1.tar.gz"
     sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
   end
+
+  # Patch to disable the search for Tk.framework, since Homebrew's Tk is
+  # a plain unix build. Remove `-lX11`, too because our Tk is "AquaTk".
+  patch :DATA if build.with? "libespeak"
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
@@ -44,3 +49,32 @@ class Aeneas < Formula
     system "#{bin}/python", "."
   end
 end
+__END__
+--- aeneas-1.5.0.3/aeneas/diagnostics.py	2016-04-01 19:07:33.000000000 +0700
++++ aeneas-1.5.0.3-patched/aeneas/diagnostics.py	2016-07-02 20:24:06.000000000 +0700
+@@ -232,11 +232,6 @@
+ 
+         :rtype: bool
+         """
+-        if not gf.is_linux():
+-            gf.print_warning(u"aeneas.cew     NOT AVAILABLE")
+-            gf.print_info(u"  The Python C Extension cew is not available for your OS")
+-            gf.print_info(u"  You can still run aeneas but it will be a bit slower (than Linux)")
+-            return False
+         if gf.can_run_c_extension("cew"):
+             gf.print_success(u"aeneas.cew     COMPILED")
+             return False
+--- aeneas-1.5.0.3/setup.py	2016-04-23 16:27:49.000000000 +0700
++++ aeneas-1.5.0.3-patched/setup.py	2016-07-02 20:23:04.000000000 +0700
+@@ -62,9 +62,8 @@
+ #EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC, EXTENSION_CWAVE]
+ 
+ EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC]
+-if IS_LINUX:
+-    # cew is available only for Linux at the moment
+-    EXTENSIONS.append(EXTENSION_CEW)
++
++EXTENSIONS.append(EXTENSION_CEW)
+ 
+ setup(
+     name="aeneas",
