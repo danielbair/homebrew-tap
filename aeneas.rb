@@ -7,8 +7,13 @@ class Aeneas < Formula
 
   depends_on "ffmpeg"
   depends_on "espeak"
-  depends_on "libespeak" => :optional
-  depends_on "python"
+  depends_on "libespeak" => :recommended
+  depends_on "python" => :recommended
+
+  resource "cython" do
+    url "https://pypi.python.org/packages/b1/51/bd5ef7dff3ae02a2c6047aa18d3d06df2fb8a40b00e938e7ea2f75544cac/Cython-0.24.tar.gz"
+    #sha256 ""
+  end
 
   resource "beautifulsoup4" do
     url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
@@ -31,7 +36,7 @@ class Aeneas < Formula
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    %w[beautifulsoup4 lxml numpy].each do |r|
+    %w[cython beautifulsoup4 lxml numpy].each do |r|
       resource(r).stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
@@ -45,8 +50,9 @@ class Aeneas < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write("find_package(Ruby)")
-    system "#{bin}/python", "."
+    #(testpath/"CMakeLists.txt").write("find_package(Ruby)")
+    #system "#{bin}/python", "."
+    system "#{bin}/aeneas_check_setup"
   end
 end
 __END__
