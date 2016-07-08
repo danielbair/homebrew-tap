@@ -6,8 +6,7 @@ class Aeneas < Formula
   head "https://github.com/readbeyond/aeneas.git"
 
   depends_on "ffmpeg"
-  depends_on "espeak"
-  depends_on "danielbair/tap/libespeak" => :recommended
+  depends_on "danielbair/tap/espeak"
   depends_on "python" => :recommended
 
   resource "beautifulsoup4" do
@@ -25,12 +24,12 @@ class Aeneas < Formula
     sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
   end
 
-  patch :DATA if build.with? "libespeak"
+  patch :DATA
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    %w[beautifulsoup4 lxml numpy].each do |r|
-      resource(r).stage do
+    resources.each do |r|
+      r.stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
@@ -50,7 +49,11 @@ class Aeneas < Formula
   end
 
   test do
-    result = `export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup`
+    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
+    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
+    result = `echo #{testpath};
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; 
+python -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
     printf result
   end
 end
