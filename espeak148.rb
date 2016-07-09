@@ -1,22 +1,27 @@
-class Libespeak < Formula
-  desc "library for the text to speech, software speech synthesizer"
+class Espeak148 < Formula
+  desc "Text to speech, software speech synthesizer"
   homepage "http://espeak.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/espeak/espeak/espeak-1.48/espeak-1.48.04-source.zip"
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
+  revision 1
+
+  conflicts_with "libespeak",
+                 :because => "both install the same libraries"
 
   depends_on "portaudio"
-  depends_on "espeak"
 
   patch :DATA
 
   def install
-    pkgshare.install "espeak-data"
-    pkgshare.install "dictsource"
+    share.install "espeak-data"
+    share.install "docs"
     cd "src" do
       rm "portaudio.h"
-      system "make", "libespeak.a", "DATADIR=#{pkgshare}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "speak", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      bin.install "speak" => "espeak"
+      system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
       lib.install "libespeak.a" => "libespeak.a"
-      system "make", "libespeak.so", "DATADIR=#{pkgshare}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
       lib.install "libespeak.so.1.1.48" => "libespeak.dylib"
       system "install_name_tool", "-id", "#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib"
     end
