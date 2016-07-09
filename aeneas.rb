@@ -9,6 +9,8 @@ class Aeneas < Formula
   depends_on "danielbair/tap/espeak"
   depends_on "python" => :recommended
 
+  option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis."
+
   resource "beautifulsoup4" do
     url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
     sha256 "87d4013d0625d4789a4f56b8d79a04d5ce6db1152bb65f1d39744f7709a366b4"
@@ -24,7 +26,7 @@ class Aeneas < Formula
     sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
   end
 
-  patch :DATA
+  patch :DATA if build.with? "libespeak"
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
@@ -38,6 +40,8 @@ class Aeneas < Formula
     system "python", *Language::Python.setup_install_args(libexec)
 
     bin.install Dir["#{libexec}/bin/*"]
+    system "cp", "VERSION", libexec/"lib/python2.7/site-packages"
+    system "cp", "check_dependencies.py", libexec/"lib/python2.7/site-packages"
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     `grep "#{libexec}/lib/python2.7/site-packages" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
     `grep "/usr/local/bin:/usr/local/sbin" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> /Users/$(whoami)/.bash_profile`
