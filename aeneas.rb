@@ -5,8 +5,8 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
-  depends_on "ffmpeg" 
-  depends_on "danielbair/tap/espeak" 
+  depends_on "ffmpeg"
+  depends_on "danielbair/tap/espeak"
   depends_on "python" => :recommended
 
   resource "beautifulsoup4" do
@@ -24,7 +24,7 @@ class Aeneas < Formula
     sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
   end
 
-  patch :DATA 
+  patch :DATA
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
@@ -38,8 +38,8 @@ class Aeneas < Formula
     system "python", *Language::Python.setup_install_args(libexec)
 
     bin.install Dir["#{libexec}/bin/*"]
-    system "cp", "VERSION", libexec/"lib/python2.7/site-packages"
-    system "cp", "check_dependencies.py", libexec/"lib/python2.7/site-packages"
+    cp "VERSION", libexec/"lib/python2.7/site-packages"
+    cp "check_dependencies.py", libexec/"lib/python2.7/site-packages"
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     `grep "#{libexec}/lib/python2.7/site-packages" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
     `grep "/usr/local/bin:/usr/local/sbin" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> /Users/$(whoami)/.bash_profile`
@@ -53,9 +53,7 @@ class Aeneas < Formula
   test do
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    result = `echo #{testpath};
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; 
-python -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
+    result = `echo #{testpath}; export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; python -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
     printf result
   end
 end
