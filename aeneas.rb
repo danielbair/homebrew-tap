@@ -46,7 +46,9 @@ class Aeneas < Formula
   end
 
   def caveats
-    homebrew_site_packages = Language::Python.homebrew_site_packages
+    #homebrew_site_packages = Language::Python.homebrew_site_packages
+    homebrew_site_packages1 = libexec/"vendor/lib/python2.7/site-packages"
+    homebrew_site_packages2 = libexec/"lib/python2.7/site-packages"
     user_site_packages = Language::Python.user_site_packages "python"
     <<-EOS.undent
 
@@ -54,7 +56,7 @@ class Aeneas < Formula
 
         If you use system python (that comes - depending on the OS X version - with older versions of numpy, scipy and matplotlib), you may need to ensure that the brewed packages come earlier in Python's sys.path with:
           mkdir -p #{user_site_packages}
-          echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
+          echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages1}"); sys.path.insert(1, "#{homebrew_site_packages2}")' >> #{user_site_packages}/homebrew.pth
 
     EOS
   end
