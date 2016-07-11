@@ -48,7 +48,7 @@ class Aeneas < Formula
   def caveats
     result = `export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup`
     printf result
-    if build.with?("python") && !Formula["python"].installed?
+    if build.with?("python") && Formula["python"].installed?
       homebrew_site_packages = Language::Python.homebrew_site_packages
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
@@ -59,7 +59,7 @@ class Aeneas < Formula
           echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
       EOS
     end
-    if build.with?("espeak") && !Formula["espeak"].installed?
+    if build.with?("espeak") && Formula["espeak"].installed?
       <<-EOS.undent
         To install --with-libespeak you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.
       EOS
