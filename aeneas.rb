@@ -5,9 +5,11 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
-  depends_on "ffmpeg"
-  depends_on "danielbair/tap/espeak"
-  depends_on "python" => :recommended
+  depends_on :ffmpeg
+  depends_on :espeak
+  depends_on :python => :recommended
+
+  option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis. (To build you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.)"
 
   resource "beautifulsoup4" do
     url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
@@ -24,7 +26,7 @@ class Aeneas < Formula
     sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
   end
 
-  patch :DATA
+  patch :DATA if build.with? "libespeak"
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
@@ -41,13 +43,27 @@ class Aeneas < Formula
     cp "VERSION", libexec/"lib/python2.7/site-packages"
     cp "check_dependencies.py", libexec/"lib/python2.7/site-packages"
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
-    `grep "#{libexec}/lib/python2.7/site-packages" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH" >> /Users/$(whoami)/.bash_profile`
-    `grep "/usr/local/bin:/usr/local/sbin" /Users/$(whoami)/.bash_profile > /dev/null || echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> /Users/$(whoami)/.bash_profile`
   end
 
   def caveats
     result = `export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; #{bin}/aeneas_check_setup`
     printf result
+    if build.with?("python") && !Formula["python"].installed?
+      homebrew_site_packages = Language::Python.homebrew_site_packages
+      user_site_packages = Language::Python.user_site_packages "python"
+      <<-EOS.undent
+        If you use system python (that comes - depending on the OS X version -
+        with older versions of numpy, scipy and matplotlib), you may need to
+        ensure that the brewed packages come earlier in Python's sys.path with:
+          mkdir -p #{user_site_packages}
+          echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
+      EOS
+    end
+    if build.with?("espeak") && !Formula["espeak"].installed?
+      <<-EOS.undent
+        To install --with-libespeak you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.
+      EOS
+    end
   end
 
   test do
@@ -61,7 +77,7 @@ __END__
 --- aeneas-1.5.0.3/aeneas/diagnostics.py	2016-04-01 19:07:33.000000000 +0700
 +++ aeneas-1.5.0.3-patched/aeneas/diagnostics.py	2016-07-02 20:24:06.000000000 +0700
 @@ -232,11 +232,6 @@
- 
+
          :rtype: bool
          """
 -        if not gf.is_linux():
@@ -76,13 +92,13 @@ __END__
 +++ aeneas-1.5.0.3-patched/setup.py	2016-07-02 20:23:04.000000000 +0700
 @@ -62,9 +62,8 @@
  #EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC, EXTENSION_CWAVE]
- 
+
  EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC]
 -if IS_LINUX:
 -    # cew is available only for Linux at the moment
 -    EXTENSIONS.append(EXTENSION_CEW)
 +
 +EXTENSIONS.append(EXTENSION_CEW)
- 
+
  setup(
      name="aeneas",
