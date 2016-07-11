@@ -5,9 +5,9 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
-  depends_on :ffmpeg
-  depends_on :espeak
-  depends_on :python => :recommended
+  depends_on "ffmpeg" => :recommended
+  depends_on "espeak" => :recommended
+  depends_on "python" => :recommended
 
   option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis. (To build you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.)"
 
