@@ -5,11 +5,11 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
+  option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis. (To build you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.)"
+
   depends_on "ffmpeg" => :recommended
   depends_on "espeak" => :recommended
   depends_on "python" => :recommended
-
-  option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis. (To build you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.)"
 
   resource "beautifulsoup4" do
     url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
