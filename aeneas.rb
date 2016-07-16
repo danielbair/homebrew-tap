@@ -46,7 +46,7 @@ class Aeneas < Formula
   end
 
   def caveats
-    #homebrew_site_packages = Language::Python.homebrew_site_packages
+    # homebrew_site_packages = Language::Python.homebrew_site_packages
     homebrew_site_packages1 = libexec/"vendor/lib/python2.7/site-packages"
     homebrew_site_packages2 = libexec/"lib/python2.7/site-packages"
     user_site_packages = Language::Python.user_site_packages "python"
