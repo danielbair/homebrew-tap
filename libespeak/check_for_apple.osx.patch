@@ -1,0 +1,40 @@
+diff -N -r -u old/src/Makefile new/src/Makefile
+--- old/src/Makefile	2014-02-02 17:58:11.000000000 +0700
++++ new/src/Makefile	2016-07-16 17:52:00.000000000 +0700
+@@ -16,7 +16,18 @@
+ LIBTAG = $(LIB_VERSION).$(RELEASE)
+ 
+ # Use SONAME_OPT=-Wl,h, on Solaris
+-SONAME_OPT=-Wl,-soname,
++ifeq ($(OS),Windows_NT)
++    uname_S := Windows
++else
++    uname_S := $(shell uname -s)
++endif
++
++ifeq ($(uname_S), Darwin)
++    # Apple does not use -soname (http://stackoverflow.com/questions/4580789/ld-unknown-option-soname-on-os-x/32280483#32280483)
++    SONAME_OPT=-Wl,-install_name,
++else
++    SONAME_OPT=-Wl,-soname,
++endif
+ 
+ # Use EXTRA_LIBS=-lm on Solaris
+ EXTRA_LIBS =
+diff -N -r -u old/src/speech.h new/src/speech.h
+--- old/src/speech.h	2014-03-04 23:47:15.000000000 +0700
++++ new/src/speech.h	2016-07-16 18:10:27.000000000 +0700
+@@ -47,7 +47,12 @@
+ //#define ESPEAK_API  extern "C"
+ 
+ #ifdef LIBRARY
+-#define USE_ASYNC
++   #if defined(__APPLE__) && defined(__MACH__)
++      // Apple does not provide sem_timedwait() (https://sourceforge.net/p/espeak/discussion/538922/thread/0d957467/#407d)
++      //#define USE_ASYNC
++   #else
++      #define USE_ASYNC
++   #endif
+ #endif
+ 
+ #ifdef _ESPEAKEDIT
