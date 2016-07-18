@@ -5,11 +5,12 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
-  option "with-libespeak", "Build with libespeak for aeneas.cew high speed synthesis. (To build you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.)"
-
   depends_on "ffmpeg" => :recommended
   depends_on "espeak" => :recommended
-  depends_on "python" => :recommended
+  depends_on :python => :recommended
+  depends_on :python3 => :optional
+
+  depends_on "homebrew/python/numpy"
 
   resource "beautifulsoup4" do
     url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
@@ -21,44 +22,48 @@ class Aeneas < Formula
     sha256 "9c74ca28a7f0c30dca8872281b3c47705e21217c8bc63912d95c9e2a7cac6bdf"
   end
 
-  resource "numpy" do
-    url "https://pypi.python.org/packages/e0/4c/515d7c4ac424ff38cc919f7099bf293dd064ba9a600e1e3835b3edefdb18/numpy-1.11.1.tar.gz"
-    sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
-  end
-
-  patch :DATA if build.with? "libespeak"
+  patch :DATA
 
   def install
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    resources.each do |r|
-      r.stage do
-        system "python", *Language::Python.setup_install_args(libexec/"vendor")
+    Language::Python.each_python(build) do |python, version|
+      dest_path = lib/"python#{version}/site-packages"
+      dest_path.mkpath
+      vendor_path = libexec/"vendor/lib/python#{version}/site-packages"
+      ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
+      resources.each do |r|
+        r.stage do
+          system python, *Language::Python.setup_install_args(libexec/"vendor")
+        end
       end
+      (dest_path/"homebrew-aeneas-vendor.pth").write "#{vendor_path}\n"
+
+      aeneas_path = libexec/"lib/python#{version}/site-packages"
+      ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
+      system python, *Language::Python.setup_install_args(libexec)
+      (dest_path/"homebrew-aeneas.pth").write "#{aeneas_path}\n"
+
+      bin.install Dir["#{libexec}/bin/*"]
+      cp_r "aeneas", prefix
+      cp "VERSION", prefix
+      cp "check_dependencies.py", prefix
+      # cp "VERSION", libexec/"lib/python2.7/site-packages"
+      # cp "check_dependencies.py", libexec/"lib/python2.7/site-packages"
+      # bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     end
-
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    system "python", *Language::Python.setup_install_args(libexec)
-
-    bin.install Dir["#{libexec}/bin/*"]
-    cp "VERSION", libexec/"lib/python2.7/site-packages"
-    cp "check_dependencies.py", libexec/"lib/python2.7/site-packages"
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
 
   def caveats
-    # homebrew_site_packages = Language::Python.homebrew_site_packages
-    homebrew_site_packages1 = libexec/"vendor/lib/python2.7/site-packages"
-    homebrew_site_packages2 = libexec/"lib/python2.7/site-packages"
-    user_site_packages = Language::Python.user_site_packages "python"
-    <<-EOS.undent
-
-        To install --with-libespeak you will need to first 'brew install danielbair/tap/espeak' to provide libespeak as the current homebrew-core espeak formula does not provide this.
-
-        If you use system python (that comes - depending on the OS X version - with older versions of numpy, scipy and matplotlib), you may need to ensure that the brewed packages come earlier in Python's sys.path with:
+    if build.with?("python") && !Formula["python"].installed?
+      homebrew_site_packages = Language::Python.homebrew_site_packages
+      user_site_packages = Language::Python.user_site_packages "python"
+      <<-EOS.undent
+        If you use system python (that comes - depending on the OS X version -
+        with older versions of numpy, scipy and matplotlib), you may need to
+        ensure that the brewed packages come earlier in Python's sys.path with:
           mkdir -p #{user_site_packages}
-          echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages1}"); sys.path.insert(1, "#{homebrew_site_packages2}")' >> #{user_site_packages}/homebrew.pth
-
-    EOS
+          echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
+      EOS
+    end
   end
 
   test do
