@@ -11,16 +11,8 @@ class Aeneas < Formula
   depends_on :python3 => :optional
 
   depends_on "homebrew/python/numpy"
-
-  resource "beautifulsoup4" do
-    url "https://pypi.python.org/packages/26/79/ef9a8bcbec5abc4c618a80737b44b56f1cb393b40238574078c5002b97ce/beautifulsoup4-4.4.1.tar.gz"
-    sha256 "87d4013d0625d4789a4f56b8d79a04d5ce6db1152bb65f1d39744f7709a366b4"
-  end
-
-  resource "lxml" do
-    url "https://pypi.python.org/packages/11/1b/fe6904151b37a0d6da6e60c13583945f8ce3eae8ebd0ec763ce546358947/lxml-3.6.0.tar.gz"
-    sha256 "9c74ca28a7f0c30dca8872281b3c47705e21217c8bc63912d95c9e2a7cac6bdf"
-  end
+  depends_on "danielbair/tap/lxml"
+  depends_on "danielbair/tap/bs4"
 
   patch :DATA
 
@@ -28,27 +20,12 @@ class Aeneas < Formula
     Language::Python.each_python(build) do |python, version|
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
-      vendor_path = libexec/"vendor/lib/python#{version}/site-packages"
-      ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-      resources.each do |r|
-        r.stage do
-          system python, *Language::Python.setup_install_args(libexec/"vendor")
-        end
-      end
-      (dest_path/"homebrew-aeneas-vendor.pth").write "#{vendor_path}\n"
 
-      aeneas_path = libexec/"lib/python#{version}/site-packages"
-      ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-      system python, *Language::Python.setup_install_args(libexec)
-      (dest_path/"homebrew-aeneas.pth").write "#{aeneas_path}\n"
+      system python, *Language::Python.setup_install_args(prefix)
 
-      bin.install Dir["#{libexec}/bin/*"]
-      cp_r "aeneas", prefix
-      cp "VERSION", prefix
-      cp "check_dependencies.py", prefix
-      # cp "VERSION", libexec/"lib/python2.7/site-packages"
-      # cp "check_dependencies.py", libexec/"lib/python2.7/site-packages"
-      # bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+      ln "aeneas", prefix
+      ln "VERSION", prefix
+      ln "check_dependencies.py", prefix
     end
   end
 
@@ -67,8 +44,6 @@ class Aeneas < Formula
   end
 
   test do
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
     result = `echo #{testpath}; export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; python -m aeneas.diagnostics; python -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
     printf result
   end
