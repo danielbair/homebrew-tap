@@ -23,9 +23,9 @@ class Aeneas < Formula
 
       system python, *Language::Python.setup_install_args(prefix)
 
-      ln "aeneas", prefix
-      ln "VERSION", prefix
-      ln "check_dependencies.py", prefix
+      # ln "aeneas", prefix
+      ln "VERSION", dest_path
+      ln "check_dependencies.py", dest_path 
     end
   end
 
