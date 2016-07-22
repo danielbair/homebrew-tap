@@ -7,12 +7,15 @@ class Espeak < Formula
 
   conflicts_with "libespeak",
                  :because => "both install the same libraries"
+  conflicts_with "espeak148",
+                 :because => "both install the same binaries and libraries"
 
   depends_on "portaudio"
 
   def install
     share.install "espeak-data"
     share.install "docs"
+    espeak_data = "/usr/local/share/espeak-data"
     cd "src" do
       rm "portaudio.h"
       inreplace "Makefile", "SONAME_OPT=-Wl,-soname,", "SONAME_OPT=-Wl,-install_name,"
@@ -21,11 +24,11 @@ class Espeak < Formula
       inreplace "speech.h", "#define USE_ASYNC", "//#define USE_ASYNC"
       # OS X does not provide sem_timedwait() so disabling #define USE_ASYNC to compile for OS X.
       # See https://sourceforge.net/p/espeak/discussion/538922/thread/0d957467/#407d
-      system "make", "speak", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "speak", "DATADIR=#{espeak_data}", "PREFIX=#{prefix}"
       bin.install "speak" => "espeak"
-      system "make", "libespeak.a", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "libespeak.a", "DATADIR=#{espeak_data}", "PREFIX=#{prefix}"
       lib.install "libespeak.a" => "libespeak.a"
-      system "make", "libespeak.so", "DATADIR=#{share}/espeak-data", "PREFIX=#{prefix}"
+      system "make", "libespeak.so", "DATADIR=#{espeak_data}", "PREFIX=#{prefix}"
       lib.install "libespeak.so.1.1.48" => "libespeak.dylib"
       system "install_name_tool", "-id", "#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib"
       # OS X does not use the convention libraryname.so.X.Y.Z. OS X uses the convention libraryname.X.dylib
