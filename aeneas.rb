@@ -5,8 +5,8 @@ class Aeneas < Formula
   sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
-  depends_on "ffmpeg" => :recommended
-  depends_on "espeak" => :recommended
+  depends_on "espeak148" => :recommended
+  depends_on "ffmpeg30" => :recommended
   depends_on :python => :recommended
   depends_on :python3 => :optional
 
