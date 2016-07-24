@@ -1,10 +1,11 @@
 ## Installing
 
-1. aeneas 1.5.0.3  
-2. espeak 1.48.04 binaries and libraries  
-3. espeak148 1.48.04 binaries and libraries  
-4. libespeak 1.48.04 libraries only  
-5. ffmpeg30 3.0.2  
+1. espeak148 1.48.04 binaries and libraries  
+2. ffmpeg30 3.0.2  
+3. numpy 1.11.1  
+4. lxml 3.0.6  
+5. bs4 4.4.1  
+6. aeneas 1.5.0.3  
 
 Add this homebrew tap:
 
@@ -12,7 +13,7 @@ Add this homebrew tap:
 
 Then install as any other formula:
 
-`brew install danielbair/tap/libespeak`  
+`brew install danielbair/tap/aeneas`  
 
 or  
 
