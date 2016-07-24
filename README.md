@@ -17,6 +17,6 @@ or
  4. lxml 3.0.6  
  5. bs4 4.4.1  
  6. aeneas 1.5.0.3  
- 7. brew-pkg (forked from https://github.com/timsutton/brew-pkg)  
- 8. create-dmg (forked from https://github.com/schoeps/create-dmg)  
+ 7. [brew-pkg](https://github.com/danielbair/brew-pkg) (forked from https://github.com/timsutton/brew-pkg)  
+ 8. [create-dmg](https://github.com/danielbair/create-dmg) (forked from https://github.com/schoeps/create-dmg)  
    (which was forked from https://github.com/andreyvit/create-dmg)  
