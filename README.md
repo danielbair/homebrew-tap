@@ -19,7 +19,6 @@ or
 
 `brew install aeneas`
 
-Also providing customized formula:
-1. brew-pkg forked from https://github.com/timsutton/brew-pkg
-2. create-dmg forked from https://github.com/schoeps/create-dmg forked from https://github.com/andreyvit/create-dmg
-3. 
+Also providing customized formula:  
+1. brew-pkg forked from https://github.com/timsutton/brew-pkg  
+2. create-dmg forked from https://github.com/schoeps/create-dmg forked from https://github.com/andreyvit/create-dmg  
