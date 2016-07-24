@@ -13,11 +13,9 @@ Add this homebrew tap:
 
 Then install as any other formula:
 
-`brew install danielbair/tap/aeneas`  
-
+`brew install aeneas`  
 or  
-
-`brew install aeneas`
+`brew install danielbair/tap/aeneas`  
 
 Also providing customized formula:  
  1. brew-pkg forked from https://github.com/timsutton/brew-pkg  
