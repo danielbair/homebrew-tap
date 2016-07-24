@@ -10,7 +10,7 @@ Then install as any other formula:
 or  
 `brew install danielbair/tap/aeneas`  
 
-Providing these customized formula:  
+## Providing  
  1. espeak148 1.48.04 binaries and libraries  
  2. ffmpeg30 3.0.2  
  3. numpy 1.11.1  
