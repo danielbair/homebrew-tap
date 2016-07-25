@@ -5,8 +5,6 @@ class Espeak148 < Formula
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
   revision 1
 
-  conflicts_with "libespeak",
-                 :because => "both install the same libraries"
   conflicts_with "espeak",
                  :because => "both install the same binaries and libraries"
 
