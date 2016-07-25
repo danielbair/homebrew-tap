@@ -1,8 +1,8 @@
-class Aeneas < Formula
+class Aeneas150 < Formula
   desc "Python/C library and set of tools to synchronize audio and text"
   homepage "http://www.readbeyond.it/aeneas/"
-  url "https://github.com/readbeyond/aeneas/archive/v1.5.1.0.tar.gz"
-  sha256 "349ee38c41ef8a3dda70e476185de0be51fede7e1bc2f9007923b58be524f25e"
+  url "https://github.com/readbeyond/aeneas/archive/v1.5.0.3.tar.gz"
+  sha256 "fa979e701f89440631afc474b2fb27f5fbf5702c582d424c8d9bb52dcec80fb4"
   head "https://github.com/readbeyond/aeneas.git"
 
   depends_on "espeak148" => :recommended
@@ -13,6 +13,8 @@ class Aeneas < Formula
   depends_on "danielbair/tap/numpy"
   depends_on "danielbair/tap/lxml"
   depends_on "danielbair/tap/bs4"
+
+  patch :DATA
 
   def install
     Language::Python.each_python(build) do |python, version|
@@ -43,3 +45,32 @@ class Aeneas < Formula
     printf result
   end
 end
+__END__
+--- aeneas-1.5.0.3/aeneas/diagnostics.py	2016-04-01 19:07:33.000000000 +0700
++++ aeneas-1.5.0.3-patched/aeneas/diagnostics.py	2016-07-02 20:24:06.000000000 +0700
+@@ -232,11 +232,6 @@
+
+         :rtype: bool
+         """
+-        if not gf.is_linux():
+-            gf.print_warning(u"aeneas.cew     NOT AVAILABLE")
+-            gf.print_info(u"  The Python C Extension cew is not available for your OS")
+-            gf.print_info(u"  You can still run aeneas but it will be a bit slower (than Linux)")
+-            return False
+         if gf.can_run_c_extension("cew"):
+             gf.print_success(u"aeneas.cew     COMPILED")
+             return False
+--- aeneas-1.5.0.3/setup.py	2016-04-23 16:27:49.000000000 +0700
++++ aeneas-1.5.0.3-patched/setup.py	2016-07-02 20:23:04.000000000 +0700
+@@ -62,9 +62,8 @@
+ #EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC, EXTENSION_CWAVE]
+
+ EXTENSIONS = [EXTENSION_CDTW, EXTENSION_CMFCC]
+-if IS_LINUX:
+-    # cew is available only for Linux at the moment
+-    EXTENSIONS.append(EXTENSION_CEW)
++
++EXTENSIONS.append(EXTENSION_CEW)
+
+ setup(
+     name="aeneas",
