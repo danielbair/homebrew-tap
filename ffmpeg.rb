@@ -5,6 +5,13 @@ class Ffmpeg < Formula
   sha256 "a5bca50a90a37b983eaa17c483a387189175f37ca678ae7e51d43e7610b4b3b4"
   head "https://github.com/FFmpeg/FFmpeg.git"
 
+  bottle do
+    revision 1
+    sha256 "d9c62b83a65367759a8885acab27553e104fad73d3b16c4e763f43cb9a2bb65b" => :el_capitan
+    sha256 "242c3f30bb3992784c373c163f41168ead5630e8a370aa97d24ddca13ed134a7" => :yosemite
+    sha256 "b0c090350f3628ee5c70c16fecddeea19332a89a4a047787333ac23b1788fa16" => :mavericks
+  end
+
   conflicts_with "ffmpeg30",
                  :because => "both install the same binaries"
 
@@ -175,7 +182,7 @@ class Ffmpeg < Formula
 
     # For 32-bit compilation under gcc 4.2, see:
     # https://trac.macports.org/ticket/20938#comment:22
-    ENV.append_to_cflags "-mdynamic-no-pic" if Hardware.is_32_bit? && Hardware::CPU.intel? && ENV.compiler == :clang
+    ENV.append_to_cflags "-mdynamic-no-pic" if Hardware::CPU.is_32_bit? && Hardware::CPU.intel? && ENV.compiler == :clang
 
     system "./configure", *args
 
