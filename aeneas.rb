@@ -3,7 +3,11 @@ class Aeneas < Formula
   homepage "http://www.readbeyond.it/aeneas/"
   url "https://github.com/readbeyond/aeneas/archive/v1.5.1.0.tar.gz"
   sha256 "349ee38c41ef8a3dda70e476185de0be51fede7e1bc2f9007923b58be524f25e"
-  head "https://github.com/readbeyond/aeneas.git"
+  head "https://github.com/readbeyond/aeneas.git", :branch => "master"
+  devel do
+    url "https://github.com/readbeyond/aeneas.git", :branch => "devel"
+    version "devel1"
+  end
 
   depends_on "danielbair/tap/espeak"
   depends_on "danielbair/tap/ffmpeg"

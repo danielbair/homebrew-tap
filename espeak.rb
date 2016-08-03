@@ -13,7 +13,7 @@ class Espeak < Formula
   def install
     share.install "espeak-data"
     share.install "docs"
-    espeak_data = "/usr/local/share/espeak-data"
+    espeak_data = "#{HOMEBREW_PREFIX}/share/espeak-data"
     cd "src" do
       rm "portaudio.h"
       inreplace "Makefile", "SONAME_OPT=-Wl,-soname,", "SONAME_OPT=-Wl,-install_name,"
