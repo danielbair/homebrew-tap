@@ -1,4 +1,4 @@
-class Ffmpeg < Formula
+class Ffmpeg31 < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-3.1.1.tar.bz2"
