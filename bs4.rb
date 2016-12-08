@@ -2,7 +2,7 @@ class Bs4 < Formula
   desc "provides idioms for iterating, searching, and modifying the parse tree"
   homepage "https://www.crummy.com/software/BeautifulSoup/"
   url "https://pypi.python.org/packages/86/ea/8e9fbce5c8405b9614f1fd304f7109d9169a3516a493ce4f7f77c39435b7/beautifulsoup4-4.5.1.tar.gz"
-#  sha256 "87d4013d0625d4789a4f56b8d79a04d5ce6db1152bb65f1d39744f7709a366b4"
+  sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
