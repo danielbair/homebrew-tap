@@ -1,23 +1,34 @@
 class Numpy < Formula
   desc "Package for scientific computing with Python"
   homepage "http://www.numpy.org"
-  url "https://files.pythonhosted.org/packages/e0/4c/515d7c4ac424ff38cc919f7099bf293dd064ba9a600e1e3835b3edefdb18/numpy-1.11.1.tar.gz"
-  sha256 "dc4082c43979cc856a2bf352a8297ea109ccb3244d783ae067eb2ee5b0d577cd"
+  url "https://files.pythonhosted.org/packages/16/f5/b432f028134dd30cfbf6f21b8264a9938e5e0f75204e72453af08d67eb0b/numpy-1.11.2.tar.gz"
+  sha256 "04db2fbd64e2e7c68e740b14402b25af51418fc43a59d9e54172b38b906b0f69"
   head "https://github.com/numpy/numpy.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "714347847f02820ee7c921589180b7ce39f608f9215e9e3cb4de12934ad2dd66" => :el_capitan
-    sha256 "1b09b4fefd131daf662cc79c3fa0247dc84385f2d8949a5967fc05325f2505d7" => :yosemite
-    sha256 "36425c6621f82a9090ef84b165ec33df88d4d92f5b8cdbaa05143c31be756933" => :mavericks
+    sha256 "653564e102fc276673a648db00a8409de58c2d405e3f009fe2fca48341dc546b" => :sierra
+    sha256 "adcc6904722700f4540e6d3346d06ad183dbb44103840cbf0ba2907e331878e2" => :el_capitan
+    sha256 "5f4a1549cf8d89437dabce3bcc7f2f7e2ea7ab22a328824d0c9efe4427a52c31" => :yosemite
+  end
+
+  head do
+    url "https://github.com/numpy/numpy.git"
+
+    resource "Cython" do
+      url "https://pypi.python.org/packages/c6/fe/97319581905de40f1be7015a0ea1bd336a756f6249914b148a17eefa75dc/Cython-0.24.1.tar.gz"
+      sha256 "84808fda00508757928e1feadcf41c9f78e9a9b7167b6649ab0933b76f75e7b9"
+    end
   end
 
   option "without-python", "Build without python2 support"
-  option "with-openblas", "Use openBLAS instead of Apple's Accelerate Framework"
 
   depends_on :python => :recommended if MacOS.version <= :snow_leopard
   depends_on :python3 => :optional
+  depends_on :fortran => :build
 
+  option "without-check", "Don't run tests during installation"
+  option "with-openblas", "Use openBLAS instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => (OS.mac? ? :optional : :recommended)
 
   resource "nose" do
@@ -28,7 +39,10 @@ class Numpy < Formula
   def install
     # https://github.com/numpy/numpy/issues/4203
     # https://github.com/Homebrew/homebrew-python/issues/209
-    ENV.append "LDFLAGS", "-shared" if OS.linux?
+    if OS.linux?
+      ENV.append "LDFLAGS", "-shared"
+      ENV.append "FFLAGS", "-fPIC"
+    end
 
     if build.with? "openblas"
       openblas_dir = Formula["openblas"].opt_prefix
@@ -56,7 +70,27 @@ class Numpy < Formula
         (dest_path/"homebrew-numpy-nose.pth").write "#{nose_path}\n"
       end
 
-      system python, *Language::Python.setup_install_args(prefix)
+      if build.head?
+        ENV.prepend_create_path "PYTHONPATH", buildpath/"tools/lib/python#{version}/site-packages"
+        resource("Cython").stage do
+          system python, *Language::Python.setup_install_args(buildpath/"tools")
+        end
+      end
+
+      system python, "setup.py",
+        "build", "--fcompiler=gnu95", "--parallel=#{ENV.make_jobs}",
+        "install", "--prefix=#{prefix}",
+        "--single-version-externally-managed", "--record=installed.txt"
+
+      if build.with? "check"
+        cd HOMEBREW_TEMP do
+          with_environment({
+            "PYTHONPATH" => "#{dest_path}:#{nose_path}",
+            "PATH" => "#{bin}:#{ENV["PATH"]}"}) do
+              system python, "-c", "import numpy; assert numpy.test().wasSuccessful()"
+            end
+        end
+      end
     end
   end
 
