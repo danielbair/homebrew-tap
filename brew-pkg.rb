@@ -3,7 +3,7 @@ class BrewPkg < Formula
   homepage "https://github.com/danielbair/brew-pkg"
   head "https://github.com/danielbair/brew-pkg.git"
   url "https://github.com/danielbair/brew-pkg.git",
-      :tag => "v0.1.9",
+      :tag => "v0.1.10",
       :revision => "f852080cae58be08c8c2c1512b42c40b128dc825"
 
   # This is an .rb that must be executable in order for Homebrew to
