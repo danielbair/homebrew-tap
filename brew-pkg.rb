@@ -4,7 +4,7 @@ class BrewPkg < Formula
   head "https://github.com/danielbair/brew-pkg.git"
   url "https://github.com/danielbair/brew-pkg.git",
       :tag => "v0.1.9",
-      :revision => "75f93682a92da89932ee7036875c3e5b07e95da2"
+      :revision => "f852080cae58be08c8c2c1512b42c40b128dc825"
 
   # This is an .rb that must be executable in order for Homebrew to
   # find it with the 'which' method, so we skip_clean
