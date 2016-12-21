@@ -25,7 +25,7 @@ class Numpy < Formula
 
   depends_on :python => :recommended if MacOS.version <= :snow_leopard
   depends_on :python3 => :optional
-  depends_on :fortran => :build
+#  depends_ #:fortran => #:build
 
   option "without-check", "Don't run tests during installation"
   option "with-openblas", "Use openBLAS instead of Apple's Accelerate Framework"
@@ -77,20 +77,21 @@ class Numpy < Formula
         end
       end
 
-      system python, "setup.py",
-        "build", "--fcompiler=gnu95", "--parallel=#{ENV.make_jobs}",
-        "install", "--prefix=#{prefix}",
-        "--single-version-externally-managed", "--record=installed.txt"
-
-      if build.with? "check"
-        cd HOMEBREW_TEMP do
-          with_environment({
-            "PYTHONPATH" => "#{dest_path}:#{nose_path}",
-            "PATH" => "#{bin}:#{ENV["PATH"]}"}) do
-              system python, "-c", "import numpy; assert numpy.test().wasSuccessful()"
-            end
-        end
-      end
+      system python, *Language::Python.setup_install_args(prefix)
+#      system python, "setup.py",
+#        "build", "--fcompiler=gnu95", "--parallel=#{ENV.make_jobs}",
+#        "install", "--prefix=#{prefix}",
+#        "--single-version-externally-managed", "--record=installed.txt"
+#
+#      if build.with? "check"
+#        cd HOMEBREW_TEMP do
+#          with_environment({
+#            "PYTHONPATH" => "#{dest_path}:#{nose_path}",
+#            "PATH" => "#{bin}:#{ENV["PATH"]}"}) do
+#              system python, "-c", "import numpy; assert numpy.test().wasSuccessful()"
+#            end
+#        end
+#      end
     end
   end
 
