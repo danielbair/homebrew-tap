@@ -1,7 +1,7 @@
 class Aeneas < Formula
   desc "Python/C library and set of tools to synchronize audio and text"
   homepage "http://www.readbeyond.it/aeneas/"
-  url "https://github.com/readbeyond/aeneas/archive/v1.7.1.tar.gz"
+  url "https://github.com/readbeyond/aeneas/archive/v1.7.2.tar.gz"
   sha256 "b49d80c4059d66f2a8bed114757fd10efc1f1ecff563da96be67149b3e6af83c"
   head "https://github.com/readbeyond/aeneas.git", :branch => "master"
   devel do

@@ -1,19 +1,22 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-3.2.2.tar.bz2"
-  sha256 "0b129a56d1b8d06101b1fcbfaa9f4f5eee3182d1ad6e44f511a84c12113a366b"
   head "https://github.com/FFmpeg/FFmpeg.git"
+  revision 1
 
-  bottle do
-    sha256 "35c5f0c80c957610c635957b2c71508308a43063ae1c29ef130dd69792c3d3d7" => :sierra
-    sha256 "7ad880dd7577382807e1dda8a56dff70971fa5f2f45f2bb46d8a69bf58eeb0e7" => :el_capitan
-    sha256 "5927efaae97fce64142c89e1024f4bd100c9e1deef534c6a3daf44c0d9d4a4da" => :yosemite
+  stable do
+    url "https://ffmpeg.org/releases/ffmpeg-3.2.4.tar.bz2"
+    sha256 "c0fa3593a2e9e96ace3c1757900094437ad96d1d6ca19f057c378b5f394496a4"
+
+    option "with-libebur128", "Enable using libebur128 for EBU R128 loudness measurement"
+
+    # only vendored in head
+    depends_on "libebur128" => :optional
   end
 
+  option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-libass", "Enable ASS/SSA subtitle format"
-  option "with-libebur128", "Enable using libebur128 for EBU R128 loudness measurement"
   option "with-libsoxr", "Enable the soxr resample library"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-tesseract", "Enable the tesseract OCR engine"
@@ -51,6 +54,7 @@ class Ffmpeg < Formula
   depends_on "x264" => :recommended
   depends_on "xvid" => :recommended
 
+  depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
   depends_on "freetype" => :optional
@@ -60,7 +64,6 @@ class Ffmpeg < Formula
   depends_on "libbluray" => :optional
   depends_on "libbs2b" => :optional
   depends_on "libcaca" => :optional
-  depends_on "libebur128" => :optional
   depends_on "libgsm" => :optional
   depends_on "libmodplug" => :optional
   depends_on "libsoxr" => :optional
@@ -111,13 +114,14 @@ class Ffmpeg < Formula
 
     args << "--disable-indev=qtkit" if build.without? "qtkit"
     args << "--disable-securetransport" if build.without? "securetransport"
+    args << "--enable-chromaprint" if build.with? "chromaprint"
     args << "--enable-ffplay" if build.with? "sdl2"
     args << "--enable-frei0r" if build.with? "frei0r"
     args << "--enable-libass" if build.with? "libass"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libcaca" if build.with? "libcaca"
-    args << "--enable-libebur128" if build.with? "libebur128"
+    args << "--enable-libebur128" if build.stable? && build.with?("libebur128")
     args << "--enable-libfdk-aac" if build.with? "fdk-aac"
     args << "--enable-libfontconfig" if build.with? "fontconfig"
     args << "--enable-libfreetype" if build.with? "freetype"
