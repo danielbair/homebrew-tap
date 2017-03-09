@@ -8,8 +8,8 @@ class Aeneas < Formula
     url "https://github.com/readbeyond/aeneas.git", :branch => "devel"
   end
 
+  depends_on "ffmpeg"
   depends_on "danielbair/tap/espeak"
-  depends_on "danielbair/tap/ffmpeg"
   depends_on :python => :recommended
   depends_on :python3 => :optional
 
