@@ -4,8 +4,8 @@ class Bs4 < Formula
   url "https://pypi.python.org/packages/86/ea/8e9fbce5c8405b9614f1fd304f7109d9169a3516a493ce4f7f77c39435b7/beautifulsoup4-4.5.1.tar.gz"
   sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
 
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  depends_on "python" => :recommended
+  depends_on "python3" => :optional
 
   def install
     Language::Python.each_python(build) do |python, version|
