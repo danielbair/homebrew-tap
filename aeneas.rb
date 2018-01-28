@@ -10,8 +10,8 @@ class Aeneas < Formula
 
   depends_on "ffmpeg"
   depends_on "danielbair/tap/espeak"
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  depends_on "python" => :recommended
+  depends_on "python3" => :optional
 
   depends_on "danielbair/tap/numpy"
   depends_on "danielbair/tap/lxml"
