@@ -7,7 +7,7 @@ class Lxml < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
     cellar :any_skip_relocation
-    sha256 "c117f3c79077bed942d0d2d4e0f5c20d6d39b9022fb213455c6be91809f39ede" => :high_sierra
+    sha256 "8fcb1bd89367895543930444c9318794c26ed906bab3f7faef51123340e61714" => :high_sierra
   end
 
   depends_on "python@2" => :recommended
