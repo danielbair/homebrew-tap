@@ -14,6 +14,10 @@ class Numpy < Formula
     end
   end
 
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+  end
+
   option "without-python", "Build without python2 support"
 
   depends_on :python => :recommended if MacOS.version <= :snow_leopard

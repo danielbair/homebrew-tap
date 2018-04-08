@@ -1,19 +1,26 @@
 class Aeneas < Formula
   desc "Python/C library and set of tools to synchronize audio and text"
   homepage "http://www.readbeyond.it/aeneas/"
-  url "https://github.com/readbeyond/aeneas/archive/v1.7.2.tar.gz"
-  sha256 "ff6d6b3e60e4767eb227d373760a7cb0401622d8b2e445b7860f3ac9c9e80a44"
+  url "https://github.com/readbeyond/aeneas/archive/v1.7.3.tar.gz"
+  sha256 "cd6453526a7a274df113d353a45ee270b6e912f91fc8b346e2d12847b5219f61"
   head "https://github.com/readbeyond/aeneas.git", :branch => "master"
   devel do
     url "https://github.com/readbeyond/aeneas.git", :branch => "devel"
+    version "1.7.4"
   end
 
-  depends_on "danielbair/tap/espeak"
-  depends_on "danielbair/tap/ffmpeg"
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    cellar :any
+    sha256 "95bb1a689be12d6207f53c38706dbde399ab1eca14ec3c8201d6986d64a48408" => :high_sierra
+  end
 
-  depends_on "danielbair/tap/numpy"
+  depends_on "ffmpeg"
+  depends_on "danielbair/tap/espeak"
+  depends_on "python@2" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python" => :optional
+
+  depends_on "numpy"
   depends_on "danielbair/tap/lxml"
   depends_on "danielbair/tap/bs4"
 
@@ -21,24 +28,22 @@ class Aeneas < Formula
     Language::Python.each_python(build) do |python, version|
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
-      system python, *Language::Python.setup_install_args(prefix)
+      system "python", *Language::Python.setup_install_args(prefix)
       ln "VERSION", dest_path
       ln "check_dependencies.py", dest_path
     end
   end
 
   def caveats
-    if build.with?("python") && !Formula["python"].installed?
       homebrew_site_packages = Language::Python.homebrew_site_packages
       user_site_packages = Language::Python.user_site_packages "python"
-      <<-EOS.undent
+      <<~EOS
         If you use system python (that comes - depending on the OS X version -
         with older versions of numpy, scipy and matplotlib), you may need to
         ensure that the brewed packages come earlier in Python's sys.path with:
           mkdir -p #{user_site_packages}
           echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
       EOS
-    end
   end
 
   test do

@@ -10,10 +10,7 @@ class X264 < Formula
   head "https://git.videolan.org/git/x264.git"
 
   bottle do
-    cellar :any
-    sha256 "8dd89dfa62eb8837f1a49450e7f6069502f49426ec4ea79357e980f534ea3e7a" => :el_capitan
-    sha256 "edc6732b61f996968cc07c591cb17a5b4358a0db400c69e881c0559f6cf41ef8" => :yosemite
-    sha256 "a64a08088aef050f6fc27f97a5bb411c9d75d94c0b9c1f0c8dfd99cdb7f1f4c9" => :mavericks
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
   end
 
   devel do

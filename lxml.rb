@@ -4,8 +4,14 @@ class Lxml < Formula
   url "https://pypi.python.org/packages/11/1b/fe6904151b37a0d6da6e60c13583945f8ce3eae8ebd0ec763ce546358947/lxml-3.6.0.tar.gz"
   sha256 "9c74ca28a7f0c30dca8872281b3c47705e21217c8bc63912d95c9e2a7cac6bdf"
 
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    cellar :any_skip_relocation
+    sha256 "c117f3c79077bed942d0d2d4e0f5c20d6d39b9022fb213455c6be91809f39ede" => :high_sierra
+  end
+
+  depends_on "python@2" => :recommended
+  depends_on "python" => :optional
 
   def install
     Language::Python.each_python(build) do |python, version|

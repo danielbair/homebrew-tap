@@ -4,8 +4,14 @@ class Bs4 < Formula
   url "https://pypi.python.org/packages/86/ea/8e9fbce5c8405b9614f1fd304f7109d9169a3516a493ce4f7f77c39435b7/beautifulsoup4-4.5.1.tar.gz"
   sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
 
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    cellar :any_skip_relocation
+    sha256 "9d438418da523eed8fa9d198078e6715daf898fa2407c2ee9a4ac428288d4bf3" => :high_sierra
+  end
+
+  depends_on "python@2" => :recommended
+  depends_on "python" => :optional
 
   def install
     Language::Python.each_python(build) do |python, version|

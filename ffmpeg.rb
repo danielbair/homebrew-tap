@@ -4,6 +4,10 @@ class Ffmpeg < Formula
   head "https://github.com/FFmpeg/FFmpeg.git"
   revision 1
 
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+  end
+
   stable do
     url "https://ffmpeg.org/releases/ffmpeg-3.2.4.tar.bz2"
     sha256 "c0fa3593a2e9e96ace3c1757900094437ad96d1d6ca19f057c378b5f394496a4"
