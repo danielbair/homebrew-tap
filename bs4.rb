@@ -7,7 +7,8 @@ class Bs4 < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
     cellar :any_skip_relocation
-    sha256 "a26c5f9ec39cc6364fb9f38204eec7e0cdfa091fa9cb74c835655dd5ff261f8b" => :high_sierra
+    rebuild 1
+    sha256 "e61398a853973e937330cee86e48500389bd5fce534980f52a1c18835e9727a9" => :high_sierra
   end
 
   depends_on "python@2" => :recommended
