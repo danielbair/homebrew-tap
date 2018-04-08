@@ -20,9 +20,9 @@ class Numpy < Formula
 
   option "without-python", "Build without python2 support"
 
-  depends_on :python => :recommended if MacOS.version <= :snow_leopard
-  depends_on :python3 => :optional
-#  depends_ #:fortran => #:build
+  depends_on "python" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python3" => :optional
+  #depends_ #on "fortran" #=> #:build
 
   option "without-check", "Don't run tests during installation"
   option "with-openblas", "Use openBLAS instead of Apple's Accelerate Framework"
