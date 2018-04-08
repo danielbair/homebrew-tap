@@ -6,7 +6,7 @@ class Festival < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
-    sha256 "9c30b4a792303902b13ec112f89e6d2c0e5eb9b15ce0aa80c64f72a753a9ff76" => :high_sierra
+    sha256 "da9b44c783372e16e5664a9f1d1b30d107bf884a12b78a4d5db01d2760c63477" => :high_sierra
   end
 
   depends_on "speech-tools"
@@ -43,6 +43,7 @@ class Festival < Formula
 
   def install
     ENV.deparallelize
+    (buildpath/"extras/festvox").install resource("festvox")
     (buildpath/"extras/speech_tools").install resource("speech-tools")
     cd buildpath/"extras/speech_tools"
     system "./configure"
@@ -54,7 +55,6 @@ class Festival < Formula
     system "./configure"
     system "make"
     system "make", "install"
-    (buildpath/"extras/festvox").install resource("festvox")
     cd buildpath/"extras/festvox"
     system "./configure"
     system "make"
@@ -73,12 +73,9 @@ class Festival < Formula
     lib.install Dir["lib/*"]
     rm "bin/festival"
     rm "bin/festival_client"
-    #prefix.install "doc"
-    #prefix.install "src"
-    #prefix.install "examples"
-    prefix.install Dir["*"]
     bin.install Dir["src/main/*"].select { |f| File.file?(f) && File.executable?(f) }
     bin.install Dir["bin/*"].select { |f| File.file?(f) && File.executable?(f) }
+    prefix.install Dir["*"]
   end
 
   def caveats
