@@ -12,8 +12,8 @@ class Aeneas < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
     cellar :any
-    rebuild 1
-    sha256 "3415d9ec21209ac5749cef0ff4b9cf8656d9eee773bf9f68d2d8ef5a0e2a9f36" => :high_sierra
+    rebuild 2
+    sha256 "50b7a20e3ba497a3cf8a3d67d5e3015c60868ec575636b0e7c71db6d0bd15539" => :high_sierra
   end
 
   depends_on "ffmpeg"
