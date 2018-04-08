@@ -27,7 +27,7 @@ class Aeneas < Formula
 
   def install
     Language::Python.each_python(build) do |python, version|
-      dest_path = lib/"python#{version}/site-packages"
+      dest_path = lib/"python#{version}/site-packages/aeneas"
       dest_path.mkpath
       system python, *Language::Python.setup_install_args(prefix)
       ln "VERSION", dest_path
