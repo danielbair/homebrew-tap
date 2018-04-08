@@ -12,12 +12,12 @@ class Aeneas < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
     cellar :any
-    sha256 "95bb1a689be12d6207f53c38706dbde399ab1eca14ec3c8201d6986d64a48408" => :high_sierra
+    #sha256 "95bb1a689be12d6207f53c38706dbde399ab1eca14ec3c8201d6986d64a48408" => :high_sierra
   end
 
   depends_on "ffmpeg"
   depends_on "danielbair/tap/espeak"
-  depends_on "python@2" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python@2" => :recommended
   depends_on "python" => :optional
 
   depends_on "numpy"
@@ -28,7 +28,7 @@ class Aeneas < Formula
     Language::Python.each_python(build) do |python, version|
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
-      system "python", *Language::Python.setup_install_args(prefix)
+      system python, *Language::Python.setup_install_args(prefix)
       ln "VERSION", dest_path
       ln "check_dependencies.py", dest_path
     end
