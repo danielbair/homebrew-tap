@@ -20,8 +20,8 @@ class Numpy < Formula
 
   option "without-python", "Build without python2 support"
 
-  depends_on "python" => :recommended if MacOS.version <= :snow_leopard
-  depends_on "python3" => :optional
+  depends_on "python@2" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python" => :optional
   #depends_ #on "fortran" #=> #:build
 
   option "without-check", "Don't run tests during installation"
