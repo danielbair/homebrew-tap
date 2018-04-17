@@ -12,8 +12,8 @@ class Aeneas < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
     cellar :any
-    rebuild 2
-    sha256 "50b7a20e3ba497a3cf8a3d67d5e3015c60868ec575636b0e7c71db6d0bd15539" => :high_sierra
+    rebuild 3
+    sha256 "1d5fe2f6e58bb5996b90bcc92fe2c58c908b8ce63bb568ff6006df0e2dd7cfd2" => :high_sierra
   end
 
   depends_on "ffmpeg"
@@ -24,6 +24,11 @@ class Aeneas < Formula
   depends_on "numpy"
   depends_on "danielbair/tap/lxml"
   depends_on "danielbair/tap/bs4"
+
+  patch do
+    url "https://github.com/readbeyond/aeneas/pull/204.patch?full_index=1"
+    sha256 "ab25dd5f519bfca1fb5f9a865d5654178d14acf3f67e6b758e657de8d8521f82"
+  end
 
   def install
     Language::Python.each_python(build) do |python, version|
