@@ -1,18 +1,19 @@
 class Bs4 < Formula
   desc "provides idioms for iterating, searching, and modifying the parse tree"
   homepage "https://www.crummy.com/software/BeautifulSoup/"
-  url "https://pypi.python.org/packages/86/ea/8e9fbce5c8405b9614f1fd304f7109d9169a3516a493ce4f7f77c39435b7/beautifulsoup4-4.5.1.tar.gz"
-  sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
+  url "https://files.pythonhosted.org/packages/23/7b/37a477bc668068c23cb83e84191ee03709f1fa24d957b7d95083f10dda14/beautifulsoup4-4.8.0.tar.gz"
+  #sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
 
-  bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
-    cellar :any_skip_relocation
-    rebuild 1
-    sha256 "e61398a853973e937330cee86e48500389bd5fce534980f52a1c18835e9727a9" => :high_sierra
-  end
+  #bottle do
+  #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+  #  cellar :any_skip_relocation
+  #  rebuild 1
+  #  sha256 "e61398a853973e937330cee86e48500389bd5fce534980f52a1c18835e9727a9" => :high_sierra
+  #end
 
-  depends_on "python@2" => :recommended
-  depends_on "python" => :optional
+  depends_on "soupsieve"
+  depends_on "python" => :recommended
+  depends_on "python2" => :optional
 
   def install
     Language::Python.each_python(build) do |python, version|

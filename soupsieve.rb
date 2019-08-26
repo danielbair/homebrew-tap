@@ -1,14 +1,14 @@
-class Lxml < Formula
-  desc "mature binding for libxml2 and libxslt libraries using the ElementTree API"
-  homepage "http://lxml.de/"
-  url "https://files.pythonhosted.org/packages/c4/43/3f1e7d742e2a7925be180b6af5e0f67d38de2f37560365ac1a0b9a04c015/lxml-4.4.1.tar.gz"
-  #sha256 "9c74ca28a7f0c30dca8872281b3c47705e21217c8bc63912d95c9e2a7cac6bdf"
+class Soupsieve < Formula
+  desc "provides selectors from the CSS level 1 specifications up through the latest CSS level 4 drafts and beyond"
+  homepage "https://github.com/facelessuser/soupsieve"
+  url "https://files.pythonhosted.org/packages/6b/77/b7801323fd321021d92efb11154b7b85410318b8a2e9757c410afb6d976f/soupsieve-1.9.3.tar.gz"
+  #sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
 
   #bottle do
   #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
   #  cellar :any_skip_relocation
   #  rebuild 1
-  #  sha256 "6f7ba8399b2565ae7fce6dc4e537a27d5d6dfa26145f0d2b25f387ea64b41e7c" => :high_sierra
+  #  sha256 "e61398a853973e937330cee86e48500389bd5fce534980f52a1c18835e9727a9" => :high_sierra
   #end
 
   depends_on "python" => :recommended

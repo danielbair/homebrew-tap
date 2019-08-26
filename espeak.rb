@@ -5,11 +5,11 @@ class Espeak < Formula
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
   revision 2
 
-  bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
-    rebuild 2
-    sha256 "1f8c6c6d31fbb34fe7d52df13da5ec595c918a2d38ac06543846c7f12f2e724d" => :high_sierra
-  end
+  #bottle do
+  #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+  #  rebuild 2
+  #  sha256 "1f8c6c6d31fbb34fe7d52df13da5ec595c918a2d38ac06543846c7f12f2e724d" => :high_sierra
+  #end
 
   depends_on "portaudio"
 
