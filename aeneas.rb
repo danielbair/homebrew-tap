@@ -41,7 +41,7 @@ class Aeneas < Formula
   end
 
   def caveats
-      homebrew_site_packages = Language::Python.homebrew_site_packages
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python2.7"
       user_site_packages = Language::Python.user_site_packages "python"
       <<~EOS
         If you use system python (that comes - depending on the OS X version -

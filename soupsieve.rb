@@ -24,7 +24,7 @@ class Soupsieve < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python2.7"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -
