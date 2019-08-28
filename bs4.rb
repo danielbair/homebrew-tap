@@ -2,7 +2,7 @@ class Bs4 < Formula
   desc "provides idioms for iterating, searching, and modifying the parse tree"
   homepage "https://www.crummy.com/software/BeautifulSoup/"
   url "https://files.pythonhosted.org/packages/23/7b/37a477bc668068c23cb83e84191ee03709f1fa24d957b7d95083f10dda14/beautifulsoup4-4.8.0.tar.gz"
-  #sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
+  sha256 "25288c9e176f354bf277c0a10aa96c782a6a18a17122dba2e8cec4a97e03343b"
 
   #bottle do
   #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
@@ -12,22 +12,15 @@ class Bs4 < Formula
   #end
 
   depends_on "python"
-  depends_on "python2" => :optional
+  depends_on "python@2"
 
-  #depends_on "soupsieve"
+  depends_on "soupsieve"
   
-  resource "soupsieve" do
-    url "https://files.pythonhosted.org/packages/6b/77/b7801323fd321021d92efb11154b7b85410318b8a2e9757c410afb6d976f/soupsieve-1.9.3.tar.gz"
-    #sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
-  end
-
   def install
-    Language::Python.each_python(build) do |python, version|
+    ["python2", "python3"].each do |python|
+      version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
-      resource("soupsieve").stage do
-        system python, *Language::Python.setup_install_args(prefix)
-      end
       system python, *Language::Python.setup_install_args(prefix)
     end
   end

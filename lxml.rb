@@ -2,7 +2,7 @@ class Lxml < Formula
   desc "mature binding for libxml2 and libxslt libraries using the ElementTree API"
   homepage "http://lxml.de/"
   url "https://files.pythonhosted.org/packages/c4/43/3f1e7d742e2a7925be180b6af5e0f67d38de2f37560365ac1a0b9a04c015/lxml-4.4.1.tar.gz"
-  #sha256 "9c74ca28a7f0c30dca8872281b3c47705e21217c8bc63912d95c9e2a7cac6bdf"
+  sha256 "c81cb40bff373ab7a7446d6bbca0190bccc5be3448b47b51d729e37799bb5692"
 
   #bottle do
   #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
@@ -11,11 +11,12 @@ class Lxml < Formula
   #  sha256 "6f7ba8399b2565ae7fce6dc4e537a27d5d6dfa26145f0d2b25f387ea64b41e7c" => :high_sierra
   #end
 
-  depends_on "python" => :recommended
-  depends_on "python2" => :optional
+  depends_on "python"
+  depends_on "python@2"
 
   def install
-    Language::Python.each_python(build) do |python, version|
+    ["python2", "python3"].each do |python|
+      version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
       system python, *Language::Python.setup_install_args(prefix)

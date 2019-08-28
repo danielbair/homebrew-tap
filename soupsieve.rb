@@ -2,7 +2,7 @@ class Soupsieve < Formula
   desc "provides selectors from the CSS level 1 specifications up through the latest CSS level 4 drafts and beyond"
   homepage "https://github.com/facelessuser/soupsieve"
   url "https://files.pythonhosted.org/packages/6b/77/b7801323fd321021d92efb11154b7b85410318b8a2e9757c410afb6d976f/soupsieve-1.9.3.tar.gz"
-  #sha256 "3c9474036afda9136aac6463def733f81017bf9ef3510d25634f335b0c87f5e1"
+  sha256 "8662843366b8d8779dec4e2f921bebec9afd856a5ff2e82cd419acc5054a1a92"
 
   #bottle do
   #  root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
@@ -11,11 +11,12 @@ class Soupsieve < Formula
   #  sha256 "e61398a853973e937330cee86e48500389bd5fce534980f52a1c18835e9727a9" => :high_sierra
   #end
 
-  depends_on "python" => :recommended
-  depends_on "python2" => :optional
+  depends_on "python"
+  depends_on "python@2"
 
   def install
-    Language::Python.each_python(build) do |python, version|
+    ["python2", "python3"].each do |python|
+      version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages"
       dest_path.mkpath
       system python, *Language::Python.setup_install_args(prefix)
