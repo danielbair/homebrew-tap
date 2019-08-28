@@ -9,15 +9,14 @@ class Aeneas < Formula
     version "1.7.4"
   end
 
-#  bottle do
-#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
-#    cellar :any
-#    rebuild 3
-#    sha256 "1d5fe2f6e58bb5996b90bcc92fe2c58c908b8ce63bb568ff6006df0e2dd7cfd2" => :high_sierra
-#  end
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    cellar :any
+    sha256 "9e85e8aaf451bf32ea4a8f4fbab52f3165e16e20b3d82dc5706077dbdb5fce56" => :yosemite
+  end
 
-  depends_on "ffmpeg"
   depends_on "danielbair/tap/espeak"
+  depends_on "ffmpeg"
   depends_on "python"
   depends_on "python@2"
 
