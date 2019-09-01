@@ -2,7 +2,7 @@ class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.tar.bz2"
-  #sha256 "f1f049a82fcfbf156564e73a3935d7e750891fab2abf302e735104fd4050a7e1"
+  sha256 "306bde5f411e9ee04352d1d3de41bd3de986e42e2af2a4c44052dce1ada26fb8"
   #revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
@@ -45,7 +45,6 @@ class Ffmpeg < Formula
   def install
     args = %W[
       --prefix=#{prefix}
-      --enable-shared
       --enable-pthreads
       --enable-version3
       --enable-avresample
