@@ -6,7 +6,7 @@ class Espeak < Formula
   revision 2
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     cellar :any
     sha256 "e10430e0cfca06ae0c07d76caafe89515857d912238ad5723f47ffe89910222f" => :yosemite
   end

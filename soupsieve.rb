@@ -5,7 +5,7 @@ class Soupsieve < Formula
   sha256 "8662843366b8d8779dec4e2f921bebec9afd856a5ff2e82cd419acc5054a1a92"
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     cellar :any_skip_relocation
     sha256 "74269451608ed19de14928c5ee8b973730355a717d60523833ca62b8710c7a43" => :yosemite
   end

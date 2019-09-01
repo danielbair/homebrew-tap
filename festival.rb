@@ -5,7 +5,7 @@ class Festival < Formula
   sha256 "4c9007426b125290599d931df410e2def51e68a8aeebd89b4a61c7c96c09a4b4"
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     rebuild 2
     sha256 "bf5502f329c83b19b5951e2bea1c4143abaac3745a6c543aa423cce3f3b3d22a" => :high_sierra
   end

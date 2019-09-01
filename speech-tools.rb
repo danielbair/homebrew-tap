@@ -6,7 +6,7 @@ class SpeechTools < Formula
   revision 1
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
 #    cellar :any_skip_relocation
 #    sha256 "b43389631b881f76529aa4458442b819dc5be784afbf5569f9e526ce3dc7e028" => :high_sierra
 #    sha256 "4d3681ee2194a92fcbad96371c499f5c2a71c59cfe8798b8092f0e57f793fca3" => :sierra

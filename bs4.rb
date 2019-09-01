@@ -5,7 +5,7 @@ class Bs4 < Formula
   sha256 "25288c9e176f354bf277c0a10aa96c782a6a18a17122dba2e8cec4a97e03343b"
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     cellar :any_skip_relocation
     sha256 "ff05d24de489f255efdf8f9e8ab0424e1724bdf177a213b2d26c9e4e6d73576c" => :yosemite
   end

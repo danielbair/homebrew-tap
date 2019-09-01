@@ -10,7 +10,7 @@ class Aeneas < Formula
   end
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles/"
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     cellar :any
     sha256 "9e85e8aaf451bf32ea4a8f4fbab52f3165e16e20b3d82dc5706077dbdb5fce56" => :yosemite
   end
