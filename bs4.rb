@@ -13,7 +13,7 @@ class Bs4 < Formula
   depends_on "python"
   depends_on "python@2"
 
-  depends_on "soupsieve"
+  depends_on "danielbair/tap/soupsieve"
   
   def install
     ["python2", "python3"].each do |python|
