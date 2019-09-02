@@ -6,11 +6,10 @@ class Ffmpeg < Formula
   #revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
-  #bottle do
-  #  sha256 "1fff696effdf5cdea3feb1b2d022018c6dfe47b71de640a46adc4631cdeccf1e" => :mojave
-  #  sha256 "d8e05c780e5e97dd8c4502e7cd31d0dc1d9e21734c22674deadab07609255339" => :high_sierra
-  #  sha256 "df8763246c89635363a965811f322e8fa253dc3a39f0b5812024f3a79027ff7a" => :sierra
-  #end
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    sha256 "3103ff8bda7829752f53ce4910dfb9b10fe1c5070947b113c2fddf52708b1c73" => :yosemite
+  end
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
