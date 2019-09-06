@@ -86,7 +86,7 @@ class Ffmpeg < Formula
 
     system "./configure", *args
     system "make", "install"
-    system "chmod", "+x", "/usr/local/opt/ffmpeg/bin/python/*"
+    chmod 555, "/usr/local/opt/ffmpeg/bin/python/*"
     # Build and install additional FFmpeg tools
     system "make", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
