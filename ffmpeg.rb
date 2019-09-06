@@ -3,12 +3,12 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.tar.bz2"
   sha256 "306bde5f411e9ee04352d1d3de41bd3de986e42e2af2a4c44052dce1ada26fb8"
-  #revision 1
+  revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    sha256 "3103ff8bda7829752f53ce4910dfb9b10fe1c5070947b113c2fddf52708b1c73" => :yosemite
+  #  sha256 "3103ff8bda7829752f53ce4910dfb9b10fe1c5070947b113c2fddf52708b1c73" => :yosemite
   end
 
   depends_on "nasm" => :build
@@ -44,6 +44,7 @@ class Ffmpeg < Formula
   def install
     args = %W[
       --prefix=#{prefix}
+      --enable-shared
       --enable-pthreads
       --enable-version3
       --enable-avresample
@@ -81,7 +82,6 @@ class Ffmpeg < Formula
       --disable-indev=jack
       --enable-libaom
       --enable-libsoxr
-      --pkg-config-flags=--static
     ]
 
     system "./configure", *args
