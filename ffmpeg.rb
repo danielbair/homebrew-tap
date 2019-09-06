@@ -3,7 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.tar.bz2"
   sha256 "306bde5f411e9ee04352d1d3de41bd3de986e42e2af2a4c44052dce1ada26fb8"
-  revision 2
+  revision 3
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
@@ -90,6 +90,7 @@ class Ffmpeg < Formula
     # Build and install additional FFmpeg tools
     system "make", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
+    chmod 755, bin/"python"
     chmod 555, bin/"python/convert.py"
     chmod 555, bin/"python/convert_from_tensorflow.py"
   end
