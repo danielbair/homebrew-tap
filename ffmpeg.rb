@@ -3,7 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz"
   sha256 "cec7c87e9b60d174509e263ac4011b522385fd0775292e1670ecc1180c9bb6d4"
-  revision 1
+  revision 2
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
@@ -92,9 +92,16 @@ class Ffmpeg < Formula
     # Build and install additional FFmpeg tools
     system "make", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
+
+    # Fix for Non-executables were installed to bin/
     chmod 0755, bin/"python"
     chmod 0755, bin/"python/convert.py"
     chmod 0755, bin/"python/convert_from_tensorflow.py"
+    file_prepend(bin/"python/convert.py", "#!/usr/bin/env python")
+    file_prepend(bin/"python/convert_from_tensorflow.py", "#!/usr/bin/env python"
+    mv bin/"python/convert_from_tensorflow.py", bin/
+    mv bin/"python/convert.py", bin/
+    rmdir bin/"python"
   end
 
   test do
@@ -102,5 +109,16 @@ class Ffmpeg < Formula
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
     assert_predicate mp4out, :exist?
+  end
+  def file_prepend(file, str)
+    new_contents = ""
+    File.open(file, 'r') do |fd|
+      contents = fd.read
+      new_contents = str << contents
+    end
+    # Overwrite file but now with prepended string on it
+    File.open(file, 'w') do |fd|
+      fd.write(new_contents)
+    end
   end
 end
