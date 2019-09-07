@@ -98,7 +98,7 @@ class Ffmpeg < Formula
     chmod 0755, bin/"python/convert.py"
     chmod 0755, bin/"python/convert_from_tensorflow.py"
     file_prepend(bin/"python/convert.py", "#!/usr/bin/env python")
-    file_prepend(bin/"python/convert_from_tensorflow.py", "#!/usr/bin/env python"
+    file_prepend(bin/"python/convert_from_tensorflow.py", "#!/usr/bin/env python")
     mv bin/"python/convert_from_tensorflow.py", bin/
     mv bin/"python/convert.py", bin/
     rmdir bin/"python"
