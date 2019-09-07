@@ -3,7 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz"
   sha256 "cec7c87e9b60d174509e263ac4011b522385fd0775292e1670ecc1180c9bb6d4"
-  revision 2
+  # revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
@@ -101,7 +101,7 @@ class Ffmpeg < Formula
     file_prepend(bin/"python/convert_from_tensorflow.py", "#!/usr/bin/env python")
     mv bin/"python/convert_from_tensorflow.py", bin/"convert_from_tensorflow.py", :force => true
     mv bin/"python/convert.py", bin/"convert.py", :force => true
-    rmdir bin/"python" 
+    rmdir bin/"python"
   end
 
   test do
@@ -112,12 +112,11 @@ class Ffmpeg < Formula
   end
   def file_prepend(file, str)
     new_contents = ""
-    File.open(file, 'r') do |fd|
+    File.open(file, "r") do |fd|
       contents = fd.read
       new_contents = str << contents
     end
-    # Overwrite file but now with prepended string on it
-    File.open(file, 'w') do |fd|
+    File.open(file, "w") do |fd|
       fd.write(new_contents)
     end
   end
