@@ -3,7 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz"
   sha256 "cec7c87e9b60d174509e263ac4011b522385fd0775292e1670ecc1180c9bb6d4"
-  revision 6
+  revision 7
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
@@ -93,7 +93,7 @@ class Ffmpeg < Formula
     system "make", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
 
-    # Fix for Non-executables were installed to bin/
+    # Fix for Non-executables that were installed to bin/
     # chmod 0755, bin/"python"
     # chmod 0755, bin/"python/convert.py"
     # chmod 0755, bin/"python/convert_from_tensorflow.py"
@@ -102,7 +102,7 @@ class Ffmpeg < Formula
     # mv bin/"python/convert_from_tensorflow.py", bin/"convert_from_tensorflow.py", :force => true
     # mv bin/"python/convert.py", bin/"convert.py", :force => true
     # rmdir bin/"python"
-    mv bin/"python", share/"python", :force => true
+    mv bin/"python", share/"ffmpeg/python", :force => true
   end
 
   test do
