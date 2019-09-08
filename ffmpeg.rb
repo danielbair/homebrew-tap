@@ -102,7 +102,7 @@ class Ffmpeg < Formula
     # mv bin/"python/convert_from_tensorflow.py", bin/"convert_from_tensorflow.py", :force => true
     # mv bin/"python/convert.py", bin/"convert.py", :force => true
     # rmdir bin/"python"
-    mv bin/"python", share/"ffmpeg/python", :force => true
+    mv bin/"python", pkgshare/"python", :force => true
   end
 
   test do
