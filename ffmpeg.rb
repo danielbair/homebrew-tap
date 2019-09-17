@@ -8,7 +8,7 @@ class Ffmpeg < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    sha256 "293067490f60dd42f26b1d4b3d62f7fd2bde93163993b27451db50eee261d8cd" => :maverickse
+    sha256 "293067490f60dd42f26b1d4b3d62f7fd2bde93163993b27451db50eee261d8cd" => :mavericks
   end
 
   depends_on "nasm" => :build
