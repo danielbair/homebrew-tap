@@ -1,10 +1,22 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/6e6ec331685c78584a818f524286670911e8b4af.tar.gz"
-  version "0.29.1~6e6ec33"
-  sha256 "fbb5ebc72c55af6e62cb3835b87b0fd26160533350f17e73712791870bdbe017"
-  head "https://github.com/mpv-player/mpv.git"
+  revision 4
+  head "https://github.com/mpv-player/mpv.git", :branch => "master"
+
+  stable do
+    # url "https://github.com/mpv-player/mpv/archive/6e6ec331685c78584a818f524286670911e8b4af.tar.gz"
+    # version "0.29.1~6e6ec33"
+    # sha256 "fbb5ebc72c55af6e62cb3835b87b0fd26160533350f17e73712791870bdbe017"
+    url "https://github.com/mpv-player/mpv/archive/v0.29.1.tar.gz"
+    sha256 "f9f9d461d1990f9728660b4ccb0e8cb5dce29ccaa6af567bec481b79291ca623"
+
+    # Note, non-head version is completly implemented in this lengthy patch
+    patch do
+      url "https://raw.githubusercontent.com/danielbair/homebrew-tap/master/mpv-player/mpv-fix.patch"
+      sha256 "22a71d457b84df5ffc95ab35671ff88f498e0040785c8d6213ebe54eb008d9e2"
+    end
+  end
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
