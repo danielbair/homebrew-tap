@@ -4,11 +4,11 @@ class Backports < Formula
   url "https://files.pythonhosted.org/packages/57/d4/156eb5fbb08d2e85ab0a632e2bebdad355798dece07d4752f66a8d02d1ea/backports.functools_lru_cache-1.5.tar.gz"
   sha256 "9d98697f088eb1b0fa451391f91afb5e3ebde16bbdb272819fd091151fda4f1a"
 
-  bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any_skip_relocation
-    sha256 "1d2fda37d269c43c47a05194d1936f1c47588f2d4c27606a7f2661be81c4892e" => :yosemite
-  end
+#  bottle do
+#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+#    cellar :any_skip_relocation
+#    sha256 "1d2fda37d269c43c47a05194d1936f1c47588f2d4c27606a7f2661be81c4892e" => :yosemite
+#  end
 
   depends_on "python"
 

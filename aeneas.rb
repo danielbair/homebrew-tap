@@ -5,11 +5,11 @@ class Aeneas < Formula
   sha256 "cd6453526a7a274df113d353a45ee270b6e912f91fc8b346e2d12847b5219f61"
   head "https://github.com/readbeyond/aeneas.git", :branch => "master"
 
-  bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
-    sha256 "9e85e8aaf451bf32ea4a8f4fbab52f3165e16e20b3d82dc5706077dbdb5fce56" => :yosemite
-  end
+#  bottle do
+#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+#    cellar :any
+#    sha256 "9e85e8aaf451bf32ea4a8f4fbab52f3165e16e20b3d82dc5706077dbdb5fce56" => :yosemite
+#  end
 
   depends_on "danielbair/tap/bs4"
   depends_on "danielbair/tap/espeak"
