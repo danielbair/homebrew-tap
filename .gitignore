@@ -1,3 +1,4 @@
 *.gz
 *.wav
 _configtest.f
+*.whl
