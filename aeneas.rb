@@ -24,7 +24,7 @@ class Aeneas < Formula
   end
 
   def install
-    ["python", "python3"].each do |python|
+    ["python3"].each do |python|
       version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages/aeneas"
       dest_path.mkpath
