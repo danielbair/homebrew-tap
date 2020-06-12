@@ -15,7 +15,7 @@ class Aeneas < Formula
   depends_on "danielbair/tap/espeak"
   depends_on "danielbair/tap/lxml"
   depends_on "ffmpeg"
-  depends_on "numpy@1.16"
+  depends_on "numpy"
   depends_on "python"
 
   patch do
