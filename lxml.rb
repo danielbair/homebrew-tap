@@ -10,7 +10,7 @@ class Lxml < Formula
 #    sha256 "b6ad3fceece66fb070b068b95d1f52695606adf1381776500b9e2a93bb3b6078" => :yosemite
 #  end
 
-  depends_on "python"
+  depends_on "python@3.8"
 
   def install
     ["python3"].each do |python|

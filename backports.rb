@@ -10,7 +10,7 @@ class Backports < Formula
 #    sha256 "1d2fda37d269c43c47a05194d1936f1c47588f2d4c27606a7f2661be81c4892e" => :yosemite
 #  end
 
-  depends_on "python"
+  depends_on "python@3.8"
 
   def install
     ["python3"].each do |python|

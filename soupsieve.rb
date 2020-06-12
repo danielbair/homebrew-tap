@@ -10,7 +10,7 @@ class Soupsieve < Formula
 #    sha256 "74269451608ed19de14928c5ee8b973730355a717d60523833ca62b8710c7a43" => :yosemite
 #  end
 
-  depends_on "python"
+  depends_on "python@3.8"
 
   depends_on "danielbair/tap/backports"
 

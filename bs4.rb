@@ -10,7 +10,7 @@ class Bs4 < Formula
 #    sha256 "ff05d24de489f255efdf8f9e8ab0424e1724bdf177a213b2d26c9e4e6d73576c" => :yosemite
 #  end
 
-  depends_on "python"
+  depends_on "python@3.8"
 
   depends_on "danielbair/tap/soupsieve"
   

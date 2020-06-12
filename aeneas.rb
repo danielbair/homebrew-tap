@@ -16,7 +16,7 @@ class Aeneas < Formula
   depends_on "danielbair/tap/lxml"
   depends_on "ffmpeg"
   depends_on "numpy"
-  depends_on "python"
+  depends_on "python@3.8"
 
   patch do
     url "https://github.com/readbeyond/aeneas/pull/204.patch?full_index=1"
