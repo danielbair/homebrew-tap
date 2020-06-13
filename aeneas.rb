@@ -24,7 +24,7 @@ class Aeneas < Formula
   end
   patch do
     url "https://github.com/danielbair/aeneas/commit/0d06d884b1c886c9912c2921c1c1b5fbf6024299.patch"
-    #sha256 ""
+    sha256 "4d47a7fa7a92df9acce78879a8a12a496fa152e8f960e71584ab8adede82c9dc"
   end
 
   def install
