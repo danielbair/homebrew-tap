@@ -22,6 +22,10 @@ class Aeneas < Formula
     url "https://github.com/readbeyond/aeneas/pull/204.patch?full_index=1"
     sha256 "ab25dd5f519bfca1fb5f9a865d5654178d14acf3f67e6b758e657de8d8521f82"
   end
+  patch do
+    url "https://github.com/danielbair/aeneas/commit/0d06d884b1c886c9912c2921c1c1b5fbf6024299.patch"
+    #sha256 ""
+  end
 
   def install
     ["python3"].each do |python|
