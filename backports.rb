@@ -1,8 +1,8 @@
 class Backports < Formula
   desc "Backport of functools.lru_cache from Python 3.3 as published at ActiveState."
   homepage "https://github.com/jaraco/backports.functools_lru_cache"
-  url "https://files.pythonhosted.org/packages/57/d4/156eb5fbb08d2e85ab0a632e2bebdad355798dece07d4752f66a8d02d1ea/backports.functools_lru_cache-1.5.tar.gz"
-  sha256 "9d98697f088eb1b0fa451391f91afb5e3ebde16bbdb272819fd091151fda4f1a"
+  url "https://files.pythonhosted.org/packages/ad/2e/aa84668861c3de458c5bcbfb9813f0e26434e2232d3e294469e96efac884/backports.functools_lru_cache-1.6.1.tar.gz"
+  sha256 "8fde5f188da2d593bd5bc0be98d9abc46c95bb8a9dde93429570192ee6cc2d4a"
 
 #  bottle do
 #    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"

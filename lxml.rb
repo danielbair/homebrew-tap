@@ -1,8 +1,8 @@
 class Lxml < Formula
   desc "mature binding for libxml2 and libxslt libraries using the ElementTree API"
   homepage "http://lxml.de/"
-  url "https://files.pythonhosted.org/packages/c4/43/3f1e7d742e2a7925be180b6af5e0f67d38de2f37560365ac1a0b9a04c015/lxml-4.4.1.tar.gz"
-  sha256 "c81cb40bff373ab7a7446d6bbca0190bccc5be3448b47b51d729e37799bb5692"
+  url "https://files.pythonhosted.org/packages/03/a8/73d795778143be51d8b86750b371b3efcd7139987f71618ad9f4b8b65543/lxml-4.5.1.tar.gz"
+  sha256 "27ee0faf8077c7c1a589573b1450743011117f1aa1a91d5ae776bbc5ca6070f2"
 
 #  bottle do
 #    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"

@@ -1,8 +1,8 @@
 class Bs4 < Formula
   desc "provides idioms for iterating, searching, and modifying the parse tree"
   homepage "https://www.crummy.com/software/BeautifulSoup/"
-  url "https://files.pythonhosted.org/packages/23/7b/37a477bc668068c23cb83e84191ee03709f1fa24d957b7d95083f10dda14/beautifulsoup4-4.8.0.tar.gz"
-  sha256 "25288c9e176f354bf277c0a10aa96c782a6a18a17122dba2e8cec4a97e03343b"
+  url "https://files.pythonhosted.org/packages/c6/62/8a2bef01214eeaa5a4489eca7104e152968729512ee33cb5fbbc37a896b7/beautifulsoup4-4.9.1.tar.gz"
+  sha256 "73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7"
 
 #  bottle do
 #    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
