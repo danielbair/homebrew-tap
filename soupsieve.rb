@@ -4,11 +4,11 @@ class Soupsieve < Formula
   url "https://files.pythonhosted.org/packages/3e/db/5ba900920642414333bdc3cb397075381d63eafc7e75c2373bbc560a9fa1/soupsieve-2.0.1.tar.gz"
   sha256 "a59dc181727e95d25f781f0eb4fd1825ff45590ec8ff49eadfd7f1a537cc0232"
 
-#  bottle do
-#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-#    cellar :any_skip_relocation
-#    sha256 "74269451608ed19de14928c5ee8b973730355a717d60523833ca62b8710c7a43" => :yosemite
-#  end
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    cellar :any_skip_relocation
+    sha256 "c2c9532dd5dda63817706d85822e0c7f2a62d36457c037ae1a4c75fd38d72d44" => :yosemite
+  end
 
   depends_on "python@3.8"
 

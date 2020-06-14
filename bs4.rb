@@ -4,11 +4,11 @@ class Bs4 < Formula
   url "https://files.pythonhosted.org/packages/c6/62/8a2bef01214eeaa5a4489eca7104e152968729512ee33cb5fbbc37a896b7/beautifulsoup4-4.9.1.tar.gz"
   sha256 "73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7"
 
-#  bottle do
-#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-#    cellar :any_skip_relocation
-#    sha256 "ff05d24de489f255efdf8f9e8ab0424e1724bdf177a213b2d26c9e4e6d73576c" => :yosemite
-#  end
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    cellar :any_skip_relocation
+    sha256 "f4d537ddcc6aa95aff6549675381fd64dc2bf3f0e92650db20bca446147ddf8a" => :yosemite
+  end
 
   depends_on "python@3.8"
 

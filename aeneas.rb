@@ -3,13 +3,14 @@ class Aeneas < Formula
   homepage "http://www.readbeyond.it/aeneas/"
   url "https://github.com/readbeyond/aeneas/archive/v1.7.3.tar.gz"
   sha256 "cd6453526a7a274df113d353a45ee270b6e912f91fc8b346e2d12847b5219f61"
+  revision 2
   head "https://github.com/readbeyond/aeneas.git", :branch => "master"
 
-#  bottle do
-#    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-#    cellar :any
-#    sha256 "9e85e8aaf451bf32ea4a8f4fbab52f3165e16e20b3d82dc5706077dbdb5fce56" => :yosemite
-#  end
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    cellar :any
+    sha256 "9b2704c8262f771d385ceee7a6d3363cd18ff5fd5874c0f5ad27550b9e0b2f75" => :yosemite
+  end
 
   depends_on "danielbair/tap/bs4"
   depends_on "danielbair/tap/espeak"
@@ -38,20 +39,8 @@ class Aeneas < Formula
     end
   end
 
-  def caveats
-    homebrew_site_packages = Language::Python.homebrew_site_packages "python"
-    user_site_packages = Language::Python.user_site_packages "python"
-    <<~EOS
-      If you use system python (that comes - depending on the OS X version -
-      with older versions of numpy, scipy and matplotlib), you may need to
-      ensure that the brewed packages come earlier in Python's sys.path with:
-        mkdir -p #{user_site_packages}
-        echo 'import sys; sys.path.insert(1, "#{homebrew_site_packages}")' >> #{user_site_packages}/homebrew.pth
-    EOS
-  end
-
   test do
-    result = `echo #{testpath}; export PATH=/usr/local/bin:/usr/local/sbin:$PATH; export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; python -m aeneas.diagnostics; python -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
+    result = `export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; /usr/local/opt/python\@3.8/bin/python3 -m aeneas.diagnostics; /usr/local/opt/python\@3.8/bin/python3 -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav`
     printf result
   end
 end
