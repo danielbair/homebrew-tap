@@ -1,31 +1,21 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
+  url "https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz"
+  sha256 "9163f64832226d22e24bbc4874ebd6ac02372cd717bef15c28a0aa858c5fe592"
   revision 4
-  head "https://github.com/mpv-player/mpv.git", :branch => "master"
-
-  stable do
-    # url "https://github.com/mpv-player/mpv/archive/6e6ec331685c78584a818f524286670911e8b4af.tar.gz"
-    # version "0.29.1~6e6ec33"
-    # sha256 "fbb5ebc72c55af6e62cb3835b87b0fd26160533350f17e73712791870bdbe017"
-    url "https://github.com/mpv-player/mpv/archive/v0.29.1.tar.gz"
-    sha256 "f9f9d461d1990f9728660b4ccb0e8cb5dce29ccaa6af567bec481b79291ca623"
-
-    # Note, non-head version is completly implemented in this lengthy patch
-    patch do
-      url "https://raw.githubusercontent.com/danielbair/homebrew-tap/master/mpv-player/mpv-fix.patch"
-      sha256 "22a71d457b84df5ffc95ab35671ff88f498e0040785c8d6213ebe54eb008d9e2"
-    end
-  end
+  head "https://github.com/mpv-player/mpv.git"
 
   bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    # sha256 "a91d2f0d616a23d37308c5a0c1f4902b07eec44f2eb6619c285044d3e4bb0124" => :mojave
+    sha256 "31a266861581541259febc854141b8bfe7d2a3d9f4093817ace56cf9d7be8c37" => :catalina
+    sha256 "79293ea402914b0063cc79cab13198e564a9b136edd22dcb911c7c586cb45525" => :mojave
+    sha256 "dff49871ba198a445b63a53cb1d5ffab6a9a8eb42803830aeccebab9e3ca4f10" => :high_sierra
   end
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python" => :build
+  depends_on "python@3.8" => :build
+  depends_on :xcode => :build
 
   depends_on "ffmpeg"
   depends_on "jpeg"
@@ -33,10 +23,8 @@ class Mpv < Formula
   depends_on "libass"
   depends_on "little-cms2"
   depends_on "lua@5.1"
-
   depends_on "mujs"
   depends_on "uchardet"
-  depends_on "vapoursynth"
   depends_on "youtube-dl"
 
   def install
@@ -44,6 +32,9 @@ class Mpv < Formula
     # or getdefaultlocale in docutils. Force the default c/posix locale since
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
+
+    # libarchive is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
 
     args = %W[
       --prefix=#{prefix}
@@ -57,16 +48,13 @@ class Mpv < Formula
       --datadir=#{pkgshare}
       --mandir=#{man}
       --docdir=#{doc}
-      --enable-zsh-comp
       --zshdir=#{zsh_completion}
+      --lua=51deb
     ]
 
-    system "./bootstrap.py"
-    system "python3", "waf", "configure", *args
-    system "python3", "waf", "install"
-
-    system "python3", "TOOLS/osxbundle.py", "build/mpv"
-    prefix.install "build/mpv.app"
+    system Formula["python@3.8"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "install"
   end
 
   test do

@@ -1,21 +1,22 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz"
-  sha256 "cec7c87e9b60d174509e263ac4011b522385fd0775292e1670ecc1180c9bb6d4"
-  revision 7
+  url "https://ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz"
+  sha256 "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
+  revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
-  bottle do
-    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    sha256 "293067490f60dd42f26b1d4b3d62f7fd2bde93163993b27451db50eee261d8cd" => :mavericks
-  end
+#  bottle do
+#    sha256 "a46d487d066576e6780725c499bbc537d3d395238363c2e9c68e45ca70080954" => :catalina
+#    sha256 "8ac85a1c88d97307a4e85e7d0209b2efd4214f8d85a9a4733d9767ba9d332101" => :mojave
+#    sha256 "f771a0f68575f28c94c72572b3adc8b79a4105e58a91537f08e80731cc98eb73" => :high_sierra
+#  end
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "texi2html" => :build
-
   depends_on "aom"
+  depends_on "dav1d"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -35,14 +36,23 @@ class Ffmpeg < Formula
   depends_on "sdl2"
   depends_on "snappy"
   depends_on "speex"
+  depends_on "srt"
   depends_on "tesseract"
   depends_on "theora"
+  depends_on "webp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
 
+  uses_from_macos "bzip2"
+  uses_from_macos "zlib"
+
   def install
+    # Work around Xcode 11 clang bug
+    # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
+    ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
+
     args = %W[
       --prefix=#{prefix}
       --enable-shared
@@ -57,15 +67,18 @@ class Ffmpeg < Formula
       --enable-gpl
       --enable-libaom
       --enable-libbluray
+      --enable-libdav1d
       --enable-libmp3lame
       --enable-libopus
       --enable-librubberband
       --enable-libsnappy
+      --enable-libsrt
       --enable-libtesseract
       --enable-libtheora
       --enable-libvidstab
       --enable-libvorbis
       --enable-libvpx
+      --enable-libwebp
       --enable-libx264
       --enable-libx265
       --enable-libxvid
@@ -79,11 +92,10 @@ class Ffmpeg < Formula
       --enable-libopenjpeg
       --enable-librtmp
       --enable-libspeex
+      --enable-libsoxr
       --enable-videotoolbox
       --disable-libjack
       --disable-indev=jack
-      --enable-libaom
-      --enable-libsoxr
     ]
 
     system "./configure", *args
@@ -94,14 +106,6 @@ class Ffmpeg < Formula
     bin.install Dir["tools/*"].select { |f| File.executable? f }
 
     # Fix for Non-executables that were installed to bin/
-    # chmod 0755, bin/"python"
-    # chmod 0755, bin/"python/convert.py"
-    # chmod 0755, bin/"python/convert_from_tensorflow.py"
-    # file_prepend(bin/"python/convert.py", "#!/usr/bin/env python\n")
-    # file_prepend(bin/"python/convert_from_tensorflow.py", "#!/usr/bin/env python\n")
-    # mv bin/"python/convert_from_tensorflow.py", bin/"convert_from_tensorflow.py", :force => true
-    # mv bin/"python/convert.py", bin/"convert.py", :force => true
-    # rmdir bin/"python"
     mv bin/"python", pkgshare/"python", :force => true
   end
 
@@ -110,15 +114,5 @@ class Ffmpeg < Formula
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
     assert_predicate mp4out, :exist?
-  end
-  def file_prepend(file, str)
-    new_contents = ""
-    File.open(file, "r") do |fd|
-      contents = fd.read
-      new_contents = str << contents
-    end
-    File.open(file, "w") do |fd|
-      fd.write(new_contents)
-    end
   end
 end
