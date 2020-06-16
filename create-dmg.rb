@@ -1,5 +1,5 @@
 class CreateDmg < Formula
-  desc "ishell script to build fancy DMGs."
+  desc "shell script to build fancy DMGs."
   homepage "https://github.com/danielbair/create-dmg"
   url "https://github.com/danielbair/create-dmg.git"
   version "1.0.0.4"
