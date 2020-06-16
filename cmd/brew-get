@@ -1,8 +1,0 @@
-#!/bin/bash
-
-url="`brew fetch $1 | grep Downloading | head -1 | cut -d' ' -f3`"
-path="`brew --cache $1`"
-if [ $? -eq 0 ]; then
-	wget "$url" -O "$path"
-fi
-
