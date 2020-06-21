@@ -7,7 +7,7 @@ class BrewPkg < Formula
 
   # This is an .rb that must be executable in order for Homebrew to
   # find it with the 'which' method, so we skip_clean
-  #skip_clean "bin"
+  skip_clean "bin"
 
   def install
     bin.install "cmd/brew-pkg.rb"
