@@ -3,7 +3,7 @@ class Aeneas < Formula
   homepage "http://www.readbeyond.it/aeneas/"
   url "https://github.com/readbeyond/aeneas/archive/v1.7.3.tar.gz"
   sha256 "cd6453526a7a274df113d353a45ee270b6e912f91fc8b346e2d12847b5219f61"
-  revision 3
+  revision 4
   head "https://github.com/readbeyond/aeneas.git", :branch => "master"
 
   bottle do
@@ -15,7 +15,7 @@ class Aeneas < Formula
   depends_on "danielbair/tap/bs4"
   depends_on "danielbair/tap/espeak"
   depends_on "danielbair/tap/lxml"
-#  depends_on "ffmpeg"
+  depends_on "ffmpeg"
   depends_on "numpy"
   depends_on "python@3.8"
 
@@ -29,6 +29,7 @@ class Aeneas < Formula
   end
 
   def install
+    rm_f "/usr/local/bin/aeneas_*"
     ["python3"].each do |python|
       version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages/aeneas"
@@ -40,7 +41,6 @@ class Aeneas < Formula
   end
 
   test do
-    result = `export PYTHONIOENCODING=UTF-8; export PYTHONPATH=#{ENV["PYTHONPATH"]}:$PYTHONPATH; /usr/local/opt/python\@3.8/bin/python3 -m aeneas.diagnostics; /usr/local/opt/python\@3.8/bin/python3 -m aeneas.tools.synthesize_text list "This is a test|with two lines" eng -v test.wav; rm -f test.wav`
-    printf result
+    system "/usr/local/bin/aeneas_check_setup"
   end
 end
