@@ -1,7 +1,7 @@
 class BrewPkg < Formula
   desc "Homebrew command for building OS X packages from installed formulae."
   homepage "https://github.com/danielbair/homebrew-pkg"
-  url "https://github.com/danielbair/homebrew-pkg.git", :tag => "v1.0.2" 
+  url "https://github.com/danielbair/homebrew-pkg.git", :tag => "v2.0.1" 
 
   head "https://github.com/danielbair/homebrew-pkg.git"
 
