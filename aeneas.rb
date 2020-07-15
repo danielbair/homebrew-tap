@@ -13,8 +13,8 @@ class Aeneas < Formula
   end
 
   depends_on "danielbair/tap/bs4"
-  depends_on "danielbair/tap/espeak-ng"
   depends_on "danielbair/tap/lxml"
+  depends_on "danielbair/tap/espeak-ng"
   depends_on "ffmpeg"
   depends_on "numpy"
   depends_on "python@3.8"

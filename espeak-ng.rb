@@ -9,10 +9,10 @@ class EspeakNg < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
-  depends_on "ronn-ng" => :build
   depends_on "kramdown" => :build
-  depends_on "pcaudiolib"
-  depends_on "sonic-speech"
+  depends_on "danielbair/tap/ronn-ng" => :build
+  depends_on "danielbair/tap/pcaudiolib"
+  depends_on "danielbair/tap/sonic-speech"
 
   def install
     system "./autogen.sh"
