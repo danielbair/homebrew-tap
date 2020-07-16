@@ -10,15 +10,15 @@ class EspeakNg < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   depends_on "kramdown" => :build
-  depends_on "danielbair/tap/ronn-ng" => :build
+  depends_on "ronn" => :build
   depends_on "danielbair/tap/pcaudiolib"
   depends_on "danielbair/tap/sonic-speech"
 
   def install
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}", "--with-extdict-ru", "--with-extdict-zh", "--with-extdict-zhy"
-    system "make", "src/espeak-ng", "src/speak-ng", "en"
-    system "make", "-i", "-k", "install"
+    system "make", "-j1", "src/espeak-ng", "src/speak-ng", "en"
+    system "make", "-j1", "install"
   end
 
   test do
