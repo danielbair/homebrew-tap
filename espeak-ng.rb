@@ -5,6 +5,11 @@ class EspeakNg < Formula
   sha256 "5ce9f24ee662b5822a4acc45bed31425e70d7c50707b96b6c1603a335c7759fa"
   head "https://github.com/danielbair/espeak-ng.git"
 
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    sha256 "f9635f7ec9f8de8db0d571a2e7f88a06c0eb103acbf98b9452c914f7a8cffd31" => :yosemite
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build

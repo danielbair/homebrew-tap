@@ -4,6 +4,12 @@ class SonicSpeech < Formula
   url "https://github.com/espeak-ng/sonic/archive/release-0.2.0.tar.gz"
   sha256 "c7827ce576838467590ffa1f935fbe1049e896dfed6c515cf569ad3779c24085"
 
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    cellar :any
+    sha256 "4ae710f9c821f6144180960d030dae3e83f001b5d207c54f57d8db86007127af" => :yosemite
+  end
+
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
 

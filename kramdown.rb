@@ -5,6 +5,12 @@ class Kramdown < Formula
   sha256 "3023ad3be1ad07c3fbf1677732ba66942674cc8f2beee866b54fa932cce0910c"
   head "https://github.com/gettalong/kramdown"
 
+  bottle do
+    root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
+    cellar :any_skip_relocation
+    sha256 "d89a055bf354c0f43a62d80b1b943fbf543c796fc440007cd58efd4193f6cc71" => :yosemite
+  end
+
   patch do
     url "https://patch-diff.githubusercontent.com/raw/gettalong/kramdown/pull/673.diff"
     sha256 "ef872ddf0551559f60bf21ed55aaa18fdec10571a50e7028439f67930b801183"
