@@ -8,7 +8,7 @@ class SonicSpeech < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     cellar :any
-    #sha256 "4ae710f9c821f6144180960d030dae3e83f001b5d207c54f57d8db86007127af" => :yosemite
+    sha256 "9062b9127886de8c6895844d1a3dd23e3e4b49c041bc9a6fafac2ce705530137" => :yosemite
   end
 
   depends_on "libtool" => :build

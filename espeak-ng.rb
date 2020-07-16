@@ -7,7 +7,8 @@ class EspeakNg < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    sha256 "f9635f7ec9f8de8db0d571a2e7f88a06c0eb103acbf98b9452c914f7a8cffd31" => :yosemite
+    rebuild 1
+    sha256 "5b7aa73d9fbb660d3aebf3e6d465d4fe949c0030454c2662007c6bc47c1cfde6" => :yosemite
   end
 
   depends_on "autoconf" => :build
