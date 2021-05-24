@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class Festival < Formula
   desc "C++ speech software library from the University of Edinburgh"
   homepage "http://festvox.org/docs/manual-2.4.0/"
@@ -7,7 +10,7 @@ class Festival < Formula
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
     rebuild 2
-    sha256 "bf5502f329c83b19b5951e2bea1c4143abaac3745a6c543aa423cce3f3b3d22a" => :high_sierra
+    sha256 high_sierra: "bf5502f329c83b19b5951e2bea1c4143abaac3745a6c543aa423cce3f3b3d22a"
   end
 
   depends_on "speech-tools"
@@ -52,7 +55,7 @@ class Festival < Formula
     rm_rf "bin"
     ln_s "/usr/local/opt/speech-tools/bin", "bin"
     cd buildpath
-    inreplace "config/config.in", /\/..\/speech_tools/, "/extras/speech_tools"
+    inreplace "config/config.in", %r{/../speech_tools}, "/extras/speech_tools"
     system "./configure"
     system "make"
     system "make", "install"
@@ -80,13 +83,13 @@ class Festival < Formula
   end
 
   def caveats
-      <<~EOS
-        Add the following to your ~/.bash_profile:
-	  export FESTIVALDIR=/usr/local/opt/festival/
-	  export FESTLIBDIR=/usr/local/opt/festival/lib/
-	  export FESTVOXDIR=/usr/local/opt/festival/share/festvox/
-	  export ESTDIR=/usr/local/opt/festival/share/speech_tools/
-      EOS
+    <<~EOS
+           Add the following to your ~/.bash_profile:
+      export FESTIVALDIR=/usr/local/opt/festival/
+      export FESTLIBDIR=/usr/local/opt/festival/lib/
+      export FESTVOXDIR=/usr/local/opt/festival/share/festvox/
+      export ESTDIR=/usr/local/opt/festival/share/speech_tools/
+    EOS
   end
 
   test do
@@ -100,22 +103,24 @@ class Festival < Formula
 
     File.open(txtfile, "w") do |f|
       scale = 2 ** 15 - 1
-      f.puts Array.new(duration_secs * rate_hz) { |i| (scale * Math.sin(frequency_hz * 2 * Math::PI * i / rate_hz)).to_i }
+      f.puts Array.new(duration_secs * rate_hz) { |i|
+               (scale * Math.sin(frequency_hz * 2 * Math::PI * i / rate_hz)).to_i
+             }
     end
 
     # convert to wav format using ch_wave
     system bin/"ch_wave", txtfile,
-      "-itype", "raw",
-      "-istype", "ascii",
-      "-f", rate_hz.to_s,
-      "-o", wavfile,
-      "-otype", "riff"
+           "-itype", "raw",
+           "-istype", "ascii",
+           "-f", rate_hz.to_s,
+           "-o", wavfile,
+           "-otype", "riff"
 
     # pitch tracking to est format using pda
     system bin/"pda", wavfile,
-      "-shift", (1 / frequency_hz.to_f).to_s,
-      "-o", ptcfile,
-      "-otype", "est"
+           "-shift", (1 / frequency_hz.to_f).to_s,
+           "-o", ptcfile,
+           "-otype", "est"
 
     # extract one frame from the middle using ch_track, capturing stdout
     pitch = shell_output("#{bin}/ch_track #{ptcfile} -from #{frequency_hz * duration_secs / 2} -to #{frequency_hz * duration_secs / 2}")

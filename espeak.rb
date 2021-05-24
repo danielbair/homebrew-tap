@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class Espeak < Formula
   desc "Text to speech, software speech synthesizer"
   homepage "https://espeak.sourceforge.io/"
@@ -7,8 +10,7 @@ class Espeak < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
-    sha256 "e10430e0cfca06ae0c07d76caafe89515857d912238ad5723f47ffe89910222f" => :yosemite
+    sha256 cellar: :any, yosemite: "e10430e0cfca06ae0c07d76caafe89515857d912238ad5723f47ffe89910222f"
   end
 
   depends_on "portaudio"
@@ -33,7 +35,7 @@ class Espeak < Formula
       system "make", "libespeak.so", "DATADIR=#{espeak_data}", "PREFIX=#{prefix}"
       lib.install "libespeak.so.1.1.48" => "libespeak.dylib"
       MachO::Tools.change_dylib_id("#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib")
-      #system "install_name_tool", "-id", "#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib"
+      # system "install_name_tool", "-id", "#{lib}/libespeak.dylib", "#{lib}/libespeak.dylib"
       # OS X does not use the convention libraryname.so.X.Y.Z. OS X uses the convention libraryname.X.dylib
       # See http://stackoverflow.com/questions/4580789/ld-unknown-option-soname-on-os-x/32280483#32280483
     end

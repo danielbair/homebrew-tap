@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
@@ -7,15 +10,15 @@ class Mpv < Formula
   head "https://github.com/mpv-player/mpv.git"
 
   bottle do
-    sha256 "31a266861581541259febc854141b8bfe7d2a3d9f4093817ace56cf9d7be8c37" => :catalina
-    sha256 "79293ea402914b0063cc79cab13198e564a9b136edd22dcb911c7c586cb45525" => :mojave
-    sha256 "dff49871ba198a445b63a53cb1d5ffab6a9a8eb42803830aeccebab9e3ca4f10" => :high_sierra
+    sha256 catalina:    "31a266861581541259febc854141b8bfe7d2a3d9f4093817ace56cf9d7be8c37"
+    sha256 mojave:      "79293ea402914b0063cc79cab13198e564a9b136edd22dcb911c7c586cb45525"
+    sha256 high_sierra: "dff49871ba198a445b63a53cb1d5ffab6a9a8eb42803830aeccebab9e3ca4f10"
   end
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
   depends_on "python@3.8" => :build
-  depends_on :xcode => :build
+  depends_on xcode: :build
 
   depends_on "ffmpeg"
   depends_on "jpeg"

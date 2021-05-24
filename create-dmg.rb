@@ -1,5 +1,8 @@
+# typed: false
+# frozen_string_literal: true
+
 class CreateDmg < Formula
-  desc "shell script to build fancy DMGs."
+  desc "Shell script to build fancy DMGs"
   homepage "https://github.com/danielbair/create-dmg"
   url "https://github.com/danielbair/create-dmg.git"
   version "1.0.0.4"

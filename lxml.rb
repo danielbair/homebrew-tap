@@ -1,13 +1,15 @@
+# typed: false
+# frozen_string_literal: true
+
 class Lxml < Formula
-  desc "mature binding for libxml2 and libxslt libraries using the ElementTree API"
+  desc "Mature binding for libxml2 and libxslt libraries using the ElementTree API"
   homepage "http://lxml.de/"
   url "https://files.pythonhosted.org/packages/03/a8/73d795778143be51d8b86750b371b3efcd7139987f71618ad9f4b8b65543/lxml-4.5.1.tar.gz"
   sha256 "27ee0faf8077c7c1a589573b1450743011117f1aa1a91d5ae776bbc5ca6070f2"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any_skip_relocation
-    sha256 "08c2084115729b0940369fba4b9773de0edcc43f53b4fa6594e384a994bcdc15" => :yosemite
+    sha256 cellar: :any_skip_relocation, yosemite: "08c2084115729b0940369fba4b9773de0edcc43f53b4fa6594e384a994bcdc15"
   end
 
   depends_on "python@3.8"
@@ -23,7 +25,7 @@ class Lxml < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python2.7"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -

@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class SpeechTools < Formula
   desc "C++ speech software library from the University of Edinburgh"
   homepage "http://festvox.org/docs/speech_tools-2.4.0/"
@@ -7,13 +10,13 @@ class SpeechTools < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-#    cellar :any_skip_relocation
-#    sha256 "b43389631b881f76529aa4458442b819dc5be784afbf5569f9e526ce3dc7e028" => :high_sierra
-#    sha256 "4d3681ee2194a92fcbad96371c499f5c2a71c59cfe8798b8092f0e57f793fca3" => :sierra
-#    sha256 "a0794d1d7f424833d2fe92726d26b6ebcc8dcf63b7f9700b19e1119ed7e2ca62" => :el_capitan
+    #    cellar :any_skip_relocation
+    #    sha256 "b43389631b881f76529aa4458442b819dc5be784afbf5569f9e526ce3dc7e028" => :high_sierra
+    #    sha256 "4d3681ee2194a92fcbad96371c499f5c2a71c59cfe8798b8092f0e57f793fca3" => :sierra
+    #    sha256 "a0794d1d7f424833d2fe92726d26b6ebcc8dcf63b7f9700b19e1119ed7e2ca62" => :el_capitan
   end
 
-  conflicts_with "align", :because => "both install `align` binaries"
+  conflicts_with "align", because: "both install `align` binaries"
 
   def install
     ENV.deparallelize
@@ -35,22 +38,24 @@ class SpeechTools < Formula
 
     File.open(txtfile, "w") do |f|
       scale = 2 ** 15 - 1
-      f.puts Array.new(duration_secs * rate_hz) { |i| (scale * Math.sin(frequency_hz * 2 * Math::PI * i / rate_hz)).to_i }
+      f.puts Array.new(duration_secs * rate_hz) { |i|
+               (scale * Math.sin(frequency_hz * 2 * Math::PI * i / rate_hz)).to_i
+             }
     end
 
     # convert to wav format using ch_wave
     system bin/"ch_wave", txtfile,
-      "-itype", "raw",
-      "-istype", "ascii",
-      "-f", rate_hz.to_s,
-      "-o", wavfile,
-      "-otype", "riff"
+           "-itype", "raw",
+           "-istype", "ascii",
+           "-f", rate_hz.to_s,
+           "-o", wavfile,
+           "-otype", "riff"
 
     # pitch tracking to est format using pda
     system bin/"pda", wavfile,
-      "-shift", (1 / frequency_hz.to_f).to_s,
-      "-o", ptcfile,
-      "-otype", "est"
+           "-shift", (1 / frequency_hz.to_f).to_s,
+           "-o", ptcfile,
+           "-otype", "est"
 
     # extract one frame from the middle using ch_track, capturing stdout
     pitch = shell_output("#{bin}/ch_track #{ptcfile} -from #{frequency_hz * duration_secs / 2} -to #{frequency_hz * duration_secs / 2}")

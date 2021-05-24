@@ -1,18 +1,19 @@
+# typed: false
+# frozen_string_literal: true
+
 class Soupsieve < Formula
-  desc "provides selectors from the CSS level 1 specifications up through the latest CSS level 4 drafts and beyond"
+  desc "Provides selectors from the CSS level 1 specifications and up"
   homepage "https://github.com/facelessuser/soupsieve"
   url "https://files.pythonhosted.org/packages/3e/db/5ba900920642414333bdc3cb397075381d63eafc7e75c2373bbc560a9fa1/soupsieve-2.0.1.tar.gz"
   sha256 "a59dc181727e95d25f781f0eb4fd1825ff45590ec8ff49eadfd7f1a537cc0232"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any_skip_relocation
-    sha256 "c2c9532dd5dda63817706d85822e0c7f2a62d36457c037ae1a4c75fd38d72d44" => :yosemite
+    sha256 cellar: :any_skip_relocation, yosemite: "c2c9532dd5dda63817706d85822e0c7f2a62d36457c037ae1a4c75fd38d72d44"
   end
 
-  depends_on "python@3.8"
-
   depends_on "danielbair/tap/backports"
+  depends_on "python@3.8"
 
   def install
     ["python3"].each do |python|
@@ -25,7 +26,7 @@ class Soupsieve < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python2.7"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -

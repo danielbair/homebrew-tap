@@ -1,13 +1,15 @@
+# typed: false
+# frozen_string_literal: true
+
 class Ronn < Formula
-  desc "Ronn builds manuals. It converts simple, human readable textfiles to roff for terminal display, and also to HTML for the web."
+  desc "It converts simple, human readable textfiles to roff, and also to HTML"
   homepage "https://github.com/rtomayko/ronn"
   url "https://rubygems.org/gems/ronn-0.7.3.gem"
   sha256 "82df6fd4a3aa91734866710d2811a6387e50a7513fc528ce6c7d95ee7ad7f41e"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
-    sha256 "42e02a274fb2bd0fab38f778d1dd95d3b929c0375d9e6974adbdf7499a18b4f7" => :yosemite
+    sha256 cellar: :any, yosemite: "42e02a274fb2bd0fab38f778d1dd95d3b929c0375d9e6974adbdf7499a18b4f7"
   end
 
   depends_on "ruby"
@@ -38,7 +40,7 @@ class Ronn < Formula
     end
 
     if build.head?
-      d = Dir['ronn-*.gem']
+      d = Dir["ronn-*.gem"]
       gem_file = d[0]
     else
       gem_file = "ronn-#{version}.gem"
@@ -46,21 +48,20 @@ class Ronn < Formula
     system "gem", "install", "--ignore-dependencies", gem_file
 
     bin.install libexec/"bin/ronn"
-    bin.env_script_all_files(libexec/"bin", :GEM_HOME => ENV["GEM_HOME"])
+    bin.env_script_all_files(libexec/"bin", GEM_HOME: ENV["GEM_HOME"])
 
-    #man1.install Dir["man/*.1"]
-    #man7.install Dir["man/*.7"]
-
+    # man1.install Dir["man/*.1"]
+    # man7.install Dir["man/*.7"]
   end
 
   test do
     (testpath/"test.ronn").write <<~EOS
-    helloworld
-    ==========
+      helloworld
+      ==========
 
-    Hello, world!
+      Hello, world!
     EOS
 
-    assert_match /^Hello, world/, shell_output("#{bin}/ronn --roff --pipe test.ronn")
+    assert_match(/^Hello, world/, shell_output("#{bin}/ronn --roff --pipe test.ronn"))
   end
 end

@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class SonicSpeech < Formula
   desc "Simple library to speed up or slow down speech"
   homepage "https://github.com/espeak-ng/sonic"
@@ -7,8 +10,7 @@ class SonicSpeech < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
-    sha256 "9062b9127886de8c6895844d1a3dd23e3e4b49c041bc9a6fafac2ce705530137" => :yosemite
+    sha256 cellar: :any, yosemite: "9062b9127886de8c6895844d1a3dd23e3e4b49c041bc9a6fafac2ce705530137"
   end
 
   depends_on "libtool" => :build
@@ -25,6 +27,6 @@ class SonicSpeech < Formula
   end
 
   test do
-    #nothing
+    # nothing
   end
 end

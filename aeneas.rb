@@ -1,21 +1,23 @@
+# typed: false
+# frozen_string_literal: true
+
 class Aeneas < Formula
   desc "Python/C library and set of tools to synchronize audio and text"
   homepage "http://www.readbeyond.it/aeneas/"
   url "https://github.com/readbeyond/aeneas/archive/v1.7.3.tar.gz"
   sha256 "cd6453526a7a274df113d353a45ee270b6e912f91fc8b346e2d12847b5219f61"
   revision 6
-  head "https://github.com/readbeyond/aeneas.git", :branch => "master"
+  head "https://github.com/readbeyond/aeneas.git", branch: "master"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
     rebuild 2
-    sha256 "f8518d0b42936127b2d33fafe2373ad29b8292f2a1b01b395842b93f197ed638" => :yosemite
+    sha256 cellar: :any, yosemite: "f8518d0b42936127b2d33fafe2373ad29b8292f2a1b01b395842b93f197ed638"
   end
 
   depends_on "danielbair/tap/bs4"
-  depends_on "danielbair/tap/lxml"
   depends_on "danielbair/tap/espeak-ng"
+  depends_on "danielbair/tap/lxml"
   depends_on "ffmpeg"
   depends_on "numpy"
   depends_on "python@3.8"
@@ -36,7 +38,7 @@ class Aeneas < Formula
       version = Language::Python.major_minor_version python
       dest_path = lib/"python#{version}/site-packages/aeneas"
       dest_path.mkpath
-      ENV["AENEAS_USE_ESPEAKNG"] = "True" 
+      ENV["AENEAS_USE_ESPEAKNG"] = "True"
       system python, *Language::Python.setup_install_args(prefix)
       ln "VERSION", dest_path
       ln "check_dependencies.py", dest_path
@@ -44,6 +46,6 @@ class Aeneas < Formula
   end
 
   test do
-    system "/usr/local/bin/aeneas_check_setup"
+    system "#{bin}/aeneas_check_setup"
   end
 end

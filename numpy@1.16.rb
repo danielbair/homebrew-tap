@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class NumpyAT116 < Formula
   desc "Package for scientific computing with Python"
   homepage "https://www.numpy.org/"
@@ -5,12 +8,12 @@ class NumpyAT116 < Formula
   sha256 "e5cf3fdf13401885e8eea8170624ec96225e2174eb0c611c6f26dd33b489e3ff"
   revision 1
 
-#  bottle do
-#    cellar :any
-#    sha256 "fff9f604e35a06cc3197cc818a851d037f6d8f30df04fc7640144966bfb15c91" => :catalina
-#    sha256 "0d6a4439397cf4c684b6e01fb7038ed9b9943582d5ef15f080503755330ca615" => :mojave
-#    sha256 "ed8d4fa6634bea85689ae4d5e316e9a3546469e44358aba6a9f73183fdcb4272" => :high_sierra
-#  end
+  #  bottle do
+  #    cellar :any
+  #    sha256 "fff9f604e35a06cc3197cc818a851d037f6d8f30df04fc7640144966bfb15c91" => :catalina
+  #    sha256 "0d6a4439397cf4c684b6e01fb7038ed9b9943582d5ef15f080503755330ca615" => :mojave
+  #    sha256 "ed8d4fa6634bea85689ae4d5e316e9a3546469e44358aba6a9f73183fdcb4272" => :high_sierra
+  #  end
 
   depends_on "gcc" => :build # for gfortran
   depends_on :macos # Due to Python 2
@@ -56,9 +59,9 @@ class NumpyAT116 < Formula
     end
 
     system "python", "setup.py",
-      "build", "--fcompiler=gnu95", "--parallel=#{ENV.make_jobs}",
-      "install", "--prefix=#{prefix}",
-      "--single-version-externally-managed", "--record=installed.txt"
+           "build", "--fcompiler=gnu95", "--parallel=#{ENV.make_jobs}",
+           "install", "--prefix=#{prefix}",
+           "--single-version-externally-managed", "--record=installed.txt"
 
     rm_f bin/"f2py" # avoid conflict with numpy
   end

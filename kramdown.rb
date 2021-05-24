@@ -1,5 +1,8 @@
+# typed: false
+# frozen_string_literal: true
+
 class Kramdown < Formula
-  desc "kramdown is a fast, pure Ruby Markdown superset converter, using a strict syntax definition and supporting several common extensions."
+  desc "Fast, pure Ruby Markdown superset converter"
   homepage "https://github.com/gettalong/kramdown"
   url "https://github.com/gettalong/kramdown/archive/REL_2_3_0.tar.gz"
   sha256 "3023ad3be1ad07c3fbf1677732ba66942674cc8f2beee866b54fa932cce0910c"
@@ -7,8 +10,7 @@ class Kramdown < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any_skip_relocation
-    sha256 "d89a055bf354c0f43a62d80b1b943fbf543c796fc440007cd58efd4193f6cc71" => :yosemite
+    sha256 cellar: :any_skip_relocation, yosemite: "d89a055bf354c0f43a62d80b1b943fbf543c796fc440007cd58efd4193f6cc71"
   end
 
   patch do
@@ -23,6 +25,6 @@ class Kramdown < Formula
   end
 
   test do
-    #nothing
+    # nothing
   end
 end

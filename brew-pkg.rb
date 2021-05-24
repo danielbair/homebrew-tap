@@ -1,7 +1,10 @@
+# typed: false
+# frozen_string_literal: true
+
 class BrewPkg < Formula
-  desc "Homebrew command for building OS X packages from installed formulae."
+  desc "Homebrew command for building OS X packages from installed formulae"
   homepage "https://github.com/danielbair/homebrew-pkg"
-  url "https://github.com/danielbair/homebrew-pkg.git", :tag => "v2.0.1" 
+  url "https://github.com/danielbair/homebrew-pkg.git", tag: "v2.0.1"
 
   head "https://github.com/danielbair/homebrew-pkg.git"
 
@@ -13,12 +16,12 @@ class BrewPkg < Formula
     bin.install "cmd/brew-pkg.rb"
   end
 
-    def caveats
-        <<~EOS
-          You can uninstall this formula, as `brew tap danielbair/pkg` is all that's
-          needed to install brew-pkg and keep it up to date.
-        EOS
-    end
+  def caveats
+    <<~EOS
+      You can uninstall this formula, as `brew tap danielbair/pkg` is all that's
+      needed to install brew-pkg and keep it up to date.
+    EOS
+  end
 
   test do
     system "brew", "pkg", "--help"

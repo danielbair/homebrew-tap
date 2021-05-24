@@ -1,19 +1,20 @@
+# typed: false
+# frozen_string_literal: true
+
 class Bs4 < Formula
-  desc "provides idioms for iterating, searching, and modifying the parse tree"
+  desc "Provides idioms for iterating, searching, and modifying the parse tree"
   homepage "https://www.crummy.com/software/BeautifulSoup/"
   url "https://files.pythonhosted.org/packages/c6/62/8a2bef01214eeaa5a4489eca7104e152968729512ee33cb5fbbc37a896b7/beautifulsoup4-4.9.1.tar.gz"
   sha256 "73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7"
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any_skip_relocation
-    sha256 "f4d537ddcc6aa95aff6549675381fd64dc2bf3f0e92650db20bca446147ddf8a" => :yosemite
+    sha256 cellar: :any_skip_relocation, yosemite: "f4d537ddcc6aa95aff6549675381fd64dc2bf3f0e92650db20bca446147ddf8a"
   end
 
+  depends_on "danielbair/tap/soupsieve"
   depends_on "python@3.8"
 
-  depends_on "danielbair/tap/soupsieve"
-  
   def install
     ["python3"].each do |python|
       version = Language::Python.major_minor_version python
@@ -25,7 +26,7 @@ class Bs4 < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python2.7"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -

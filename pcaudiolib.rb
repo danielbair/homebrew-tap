@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 class Pcaudiolib < Formula
   desc "Portable C Audio Library"
   homepage "https://github.com/espeak-ng/pcaudiolib"
@@ -6,8 +9,7 @@ class Pcaudiolib < Formula
 
   bottle do
     root_url "https://github.com/danielbair/homebrew-tap/releases/download/bottles"
-    cellar :any
-    sha256 "904084feb6e8fa59210e98e5d4d97c5fc2c6c84954d9dc682bbb4b18eddabd9a" => :yosemite
+    sha256 cellar: :any, yosemite: "904084feb6e8fa59210e98e5d4d97c5fc2c6c84954d9dc682bbb4b18eddabd9a"
   end
 
   depends_on "autoconf" => :build
@@ -23,6 +25,6 @@ class Pcaudiolib < Formula
   end
 
   test do
-    #nothing
+    # nothing
   end
 end
