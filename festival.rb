@@ -27,7 +27,7 @@ class Festival < Formula
 
   resource "festvox-english" do
     url "http://festvox.org/packed/festival/2.5/voices/festvox_kallpc16k.tar.gz"
-    sha256 "7a357c34086fbba8b813f9750f6b5ba13e2a00478a0a2e78a97981cb76395578"
+    sha256 "809c4ab5ed9e4df4a658b58d5c56fe35055723f00d81a238168f5a1ebdaed08c"
   end
 
   resource "festvox-cmu" do
