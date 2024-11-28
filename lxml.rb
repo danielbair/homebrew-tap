@@ -12,7 +12,7 @@ class Lxml < Formula
     sha256 cellar: :any_skip_relocation, yosemite: "08c2084115729b0940369fba4b9773de0edcc43f53b4fa6594e384a994bcdc15"
   end
 
-  depends_on "python@3.8"
+  depends_on "python@3.12"
 
   def install
     ["python3"].each do |python|
@@ -25,7 +25,7 @@ class Lxml < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.12"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -
