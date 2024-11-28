@@ -13,7 +13,7 @@ class Bs4 < Formula
   end
 
   depends_on "danielbair/tap/soupsieve"
-  depends_on "python@3.8"
+  depends_on "python@3.12"
 
   def install
     ["python3"].each do |python|
@@ -26,7 +26,7 @@ class Bs4 < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.12"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -
