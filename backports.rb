@@ -25,7 +25,7 @@ class Backports < Formula
 
   def caveats
     if build.with?("python") && !Formula["python"].installed?
-      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.8"
+      homebrew_site_packages = Language::Python.homebrew_site_packages "python3.12"
       user_site_packages = Language::Python.user_site_packages "python"
       <<-EOS.undent
         If you use system python (that comes - depending on the OS X version -
