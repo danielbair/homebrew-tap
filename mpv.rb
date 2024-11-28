@@ -17,7 +17,7 @@ class Mpv < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.8" => :build
+  depends_on "python@3.12" => :build
   depends_on xcode: :build
 
   depends_on "ffmpeg"
@@ -55,9 +55,9 @@ class Mpv < Formula
       --lua=51deb
     ]
 
-    system Formula["python@3.8"].opt_bin/"python3", "bootstrap.py"
-    system Formula["python@3.8"].opt_bin/"python3", "waf", "configure", *args
-    system Formula["python@3.8"].opt_bin/"python3", "waf", "install"
+    system Formula["python@3.12"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.12"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.12"].opt_bin/"python3", "waf", "install"
   end
 
   test do
