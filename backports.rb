@@ -12,7 +12,7 @@ class Backports < Formula
     sha256 cellar: :any_skip_relocation, yosemite: "0341c9dcdb4668900c867be683884a508e6fb417ae8d4a8483cd91799144d5d5"
   end
 
-  depends_on "python@3.8"
+  depends_on "python@3.12"
 
   def install
     ["python3"].each do |python|
